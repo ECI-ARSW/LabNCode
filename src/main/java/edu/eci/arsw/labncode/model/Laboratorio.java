@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.labncode.entidad;
+package edu.eci.arsw.labncode.model;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.labncode.entidad;
+package edu.eci.arsw.labncode.model;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,9 @@ import java.util.ArrayList;
  *
  * @author 2101240
  */
-public class Sala {
-    private String nombre; 
+public class Materia {
+    private String nombre;
+    private String sigla;
+    private String descripcion;
     private ArrayList<Persona> personas;
-    
 }

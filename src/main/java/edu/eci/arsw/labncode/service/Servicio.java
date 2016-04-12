@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.labncode.entidad;
-
-import java.util.ArrayList;
+package edu.eci.arsw.labncode.service;
 
 /**
  *
  * @author 2101240
  */
-public abstract class Persona {
-    private String nombre;
-    private ArrayList<Materia>materias;
-    private int identificacion;
+public class Servicio {
+    //creacion de la sala
+    //creacion de la laboratorio
+    //agregar sala al laboratorio
+    //agregar estudiantes a la sala
+    
 }

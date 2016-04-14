@@ -21,4 +21,14 @@ public class Profesor extends Persona{
         return sala.isProfesor();
     }
     
+     @Override
+    public boolean esProfesor() {
+        return true;
+    }
+
+    @Override
+    public boolean esEstudiante() {
+        return false;
+    }
+    
 }

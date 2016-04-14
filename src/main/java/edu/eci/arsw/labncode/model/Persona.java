@@ -24,5 +24,7 @@ public abstract class Persona {
     public abstract void cambiarEstado( Sala sala);
     public abstract boolean estado(Sala sala);
     
+    public abstract boolean esProfesor();
+    public abstract boolean esEstudiante();
     
 }

@@ -20,5 +20,15 @@ public class Estudiante extends Persona{
     public boolean estado(Sala sala) {
         return super.conectado;
     }
+
+    @Override
+    public boolean esProfesor() {
+        return false;
+    }
+
+    @Override
+    public boolean esEstudiante() {
+        return true;
+    }
     
 }

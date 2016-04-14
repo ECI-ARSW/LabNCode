@@ -20,4 +20,22 @@ public class Laboratorio {
     private Enunciado enunciado;
     private ArrayList<Sala> salas;
     private Materia materia;
+    
+    public void agregarSala(Sala sala){
+        salas.add(sala);
+    }
+    
+    public Persona getProfesor(){
+        return materia.getProfesor();
+    }
+
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void borrarSala(Sala sala) {
+        salas.remove(sala);
+    }
+    
+    
 }

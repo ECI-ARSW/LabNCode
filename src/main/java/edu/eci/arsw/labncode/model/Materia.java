@@ -16,4 +16,14 @@ public class Materia {
     private String sigla;
     private String descripcion;
     private ArrayList<Persona> personas;
+    
+    public Persona getProfesor(){
+        Persona profesor=null;
+        for(Persona i : personas){
+            if(i instanceof Profesor){
+                profesor=i;
+            }
+        }
+        return profesor;
+    }
 }

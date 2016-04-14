@@ -15,4 +15,14 @@ public abstract class Persona {
     private String nombre;
     private ArrayList<Materia>materias;
     private int identificacion;
+    public boolean conectado;
+    
+    public int getIdentificacion() {
+        return identificacion;
+    }
+    
+    public abstract void cambiarEstado( Sala sala);
+    public abstract boolean estado(Sala sala);
+    
+    
 }

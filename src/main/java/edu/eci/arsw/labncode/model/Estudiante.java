@@ -10,5 +10,15 @@ package edu.eci.arsw.labncode.model;
  * @author 2101240
  */
 public class Estudiante extends Persona{
+
+    @Override
+    public void cambiarEstado(Sala sala) {
+        super.conectado = !super.conectado;
+    }
+
+    @Override
+    public boolean estado(Sala sala) {
+        return super.conectado;
+    }
     
 }

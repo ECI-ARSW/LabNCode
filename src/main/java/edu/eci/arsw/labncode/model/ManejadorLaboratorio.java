@@ -23,7 +23,36 @@ public class ManejadorLaboratorio {
     public ManejadorLaboratorio(){
         laboratorios = new Hashtable<String, Laboratorio>();
     }
+    /*
+    Retorna un arreglo con todos los profesores. 
+    */
+    public ArrayList<Persona> getProfesores(){
+        ArrayList<Persona> profesores = new ArrayList<Persona>();
+        for(Persona p : personas){
+            if(p.esProfesor()){
+                profesores.add(p);
+            }
+        }
+        return profesores;
+    }
     
+    public Persona getProfesor(int id){
+        return personas.get(id);
+    }
+    
+    public ArrayList<Laboratorio> getHistorial(Profesor p){
+        ArrayList<Laboratorio> labs = new ArrayList<Laboratorio>();
+        ArrayList<Materia> mat = p.getMaterias();
+        for(Materia m : mat){
+            for(String s : laboratorios.keySet()){
+                if(laboratorios.get(s).getMateria().getSigla().equals(m.getSigla())){
+                    labs.add(laboratorios.get(s));
+                }
+            }
+        }
+        return labs; 
+    }
+ 
     public ArrayList<Laboratorio> getLaboratorios(){
         ArrayList<Laboratorio> labs = new ArrayList<Laboratorio>();
         Set<String> keys = laboratorios.keySet();
@@ -32,12 +61,5 @@ public class ManejadorLaboratorio {
         }
         return labs;
     }
-    
-    public ArrayList<Laboratorio> getHistorial(Profesor prof){
-         ArrayList<Laboratorio> labs = new ArrayList<Laboratorio>();
-         for (Laboratorio l : getLaboratorios()){
-             //if(l.getMateria()=)
-         }
-         return labs; 
-    }
+
 }

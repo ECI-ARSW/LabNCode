@@ -26,5 +26,12 @@ public abstract class Persona {
     
     public abstract boolean esProfesor();
     public abstract boolean esEstudiante();
+
+    /**
+     * @return the materias
+     */
+    public ArrayList<Materia> getMaterias() {
+        return materias;
+    }
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.labncode.service;
+package edu.eci.arsw.labncode.restcontroller;
 
 
 import edu.eci.arsw.labncode.model.Estudiante;

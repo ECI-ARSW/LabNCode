@@ -5,11 +5,17 @@
  */
 package edu.eci.arsw.labncode.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 2101240
  */
 public class Profesor extends Persona{
+
+    public Profesor(String nombre, ArrayList<Materia> materias) {
+        super(nombre, materias);
+    }
 
     @Override
     public void cambiarEstado(Sala sala) {

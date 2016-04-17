@@ -22,6 +22,7 @@ public class ManejadorLaboratorio {
     
     public ManejadorLaboratorio(){
         laboratorios = new Hashtable<String, Laboratorio>();
+        cargaDatos();
     }
     /*
     Retorna un arreglo con todos los profesores. 
@@ -38,6 +39,16 @@ public class ManejadorLaboratorio {
     
     public Persona getProfesor(int id){
         return personas.get(id);
+    }
+    
+    public void registrarProfesor(Profesor p){
+        p.setId(personas.size()-1);
+        personas.add(p);
+    }
+    
+    public void registrarEstudiante(Estudiante e){
+        e.setId(personas.size()-1);
+        personas.add(e);
     }
     
     public ArrayList<Laboratorio> getHistorial(Profesor p){
@@ -60,6 +71,10 @@ public class ManejadorLaboratorio {
             labs.add(laboratorios.get(k));
         }
         return labs;
+    }
+    
+    private void cargaDatos(){
+        
     }
 
 }

@@ -17,6 +17,12 @@ public abstract class Persona {
     private int identificacion;
     public boolean conectado;
     
+    public Persona(String nombre, ArrayList<Materia> materias){
+        this.nombre = nombre; 
+        this.materias = materias;
+        conectado = false;
+    }
+    
     public int getIdentificacion() {
         return identificacion;
     }
@@ -32,6 +38,10 @@ public abstract class Persona {
      */
     public ArrayList<Materia> getMaterias() {
         return materias;
+    }
+    
+    public void setId(int id){
+        this.identificacion= id;
     }
     
 }

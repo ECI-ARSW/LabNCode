@@ -5,12 +5,18 @@
  */
 package edu.eci.arsw.labncode.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 2101240
  */
 public class Estudiante extends Persona{
 
+    public Estudiante(String nombre, ArrayList<Materia> materias) {
+        super(nombre, materias);
+    }
+    
     @Override
     public void cambiarEstado(Sala sala) {
         super.conectado = !super.conectado;

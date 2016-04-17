@@ -17,11 +17,22 @@ public class Materia {
     private String sigla;
     private String descripcion;
     private ArrayList<Persona> personas;
+    
+    public Materia(String nombre, String sigla, String descripcion){
+        this.nombre= nombre; 
+        this.sigla = sigla;
+        this.descripcion= descripcion;
+    }
+    
+    public void registrarPersona(Persona p){
+        personas.add(p);
+    }
+
 
     public Persona getProfesor() {
         Persona profesor = null;
         for (Persona i : personas) {
-            if (i instanceof Profesor) {
+            if (i.esProfesor()) {
                 profesor = i;
             }
         }
@@ -40,6 +51,14 @@ public class Materia {
      */
     public void setSigla(String sigla) {
         this.sigla = sigla;
+    }
+    
+    public boolean estaInscrito(Persona p){
+       boolean r = false;
+       for(int i =0; i<personas.size(); i++){
+           r=personas.get(i).getIdentificacion()==p.getIdentificacion();
+       }
+       return r;
     }
 
 }

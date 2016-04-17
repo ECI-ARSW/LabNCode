@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class Profesor extends Persona {
 
-    public Profesor(String nombre, ArrayList<Materia> materias) {
-        super(nombre, materias);
+    public Profesor(String nombre) {
+        super(nombre);
     }
 
     @Override
@@ -37,15 +37,6 @@ public class Profesor extends Persona {
         return false;
     }
 
-    @Override
-    public boolean estoyEnMateria(Materia materia) {
-        boolean si = true;
-        ArrayList<Materia> mat = super.materias;
-        for (int i = 0; i < mat.size() && si; i++) {
-            si = mat.get(i).getSigla().equals(materia.getSigla());
-        }
-        return !si;
-    }
 }
 
 

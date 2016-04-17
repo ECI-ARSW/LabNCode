@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class Estudiante extends Persona{
 
-    public Estudiante(String nombre, ArrayList<Materia> materias) {
-        super(nombre, materias);
+    public Estudiante(String nombre) {
+        super(nombre);
     }
     
     @Override
@@ -37,14 +37,6 @@ public class Estudiante extends Persona{
         return true;
     }
 
-    @Override
-    public boolean estoyEnMateria(Materia materia) {
-        boolean si=true;
-        ArrayList<Materia> mat=super.materias;
-        for(int i =0 ; i< mat.size() && si; i++){
-            si=mat.get(i).getSigla().equals(materia.getSigla());
-        }
-        return !si;
-    }
+    
     
 }

@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springseminar.model.ManejadorOrdenes;
 
 /**
  *
@@ -19,11 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ManejadorLaboratorio {
     private Hashtable<String, Laboratorio> laboratorios;
     private ArrayList<Persona> personas; 
-    private ArrayList<Materia> materias;
+    private Hashtable<String, Materia> materias;
     
     public ManejadorLaboratorio(){
         laboratorios = new Hashtable<String, Laboratorio>();
-        cargaDatos();
+        materias= new Hashtable<String, Materia>();
+        personas= new ArrayList<Persona>();
+        cargaDatos(this);
     }
     /*
     Retorna un arreglo con todos los profesores. 
@@ -52,9 +55,23 @@ public class ManejadorLaboratorio {
         personas.add(e);
     }
     
+    public void registrarMateria(Materia m){
+        materias.put(m.getSigla(), m);
+    }
+    
+    private ArrayList<Materia> getMateriasPersona(Persona p){
+        ArrayList<Materia> mat = new ArrayList<Materia>();
+        for(String s: materias.keySet()){
+            if(materias.get(s).estaInscrito(p)){
+                mat.add(materias.get(s));
+            }
+        }
+        return mat;
+    }
+    
     public ArrayList<Laboratorio> getHistorial(Profesor p){
         ArrayList<Laboratorio> labs = new ArrayList<>();
-        ArrayList<Materia> mat = p.getMaterias();
+        ArrayList<Materia> mat = getMateriasPersona(p);
         for(Materia m : mat){
             for(String s : laboratorios.keySet()){
                 if(laboratorios.get(s).getMateria().getSigla().equals(m.getSigla())){
@@ -85,7 +102,7 @@ public class ManejadorLaboratorio {
     */    
     public Laboratorio crearSala(Laboratorio lab, Persona estudiante, String nombre) throws ExceptionLabNCode{
         ArrayList<Persona> estudiantes= new ArrayList<>();
-        if(estudiante.estoyEnMateria(lab.getMateria())){
+        if(lab.getMateria().estaInscrito(estudiante)){
             Grupo grupo=new Grupo(nombre,estudiantes,lab);
             grupo=agregarPersonaSala(grupo, estudiante);
             grupo=agregarPersonaSala(grupo, lab.getProfesor());
@@ -104,7 +121,7 @@ public class ManejadorLaboratorio {
      * @throws edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode 
      */
     public Grupo agregarPersonaSala(Grupo grupo, Persona persona) throws ExceptionLabNCode{
-        if(persona.estoyEnMateria(grupo.getLaboratorio().getMateria())){
+        if(grupo.getLaboratorio().getMateria().estaInscrito(persona)){
             grupo.agregarPersona(persona);
         }else{
             throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteOtraMateria);
@@ -159,8 +176,11 @@ public class ManejadorLaboratorio {
         return laboratorios.get(laboratorio).getGrupo(Grupo);
     }
 
-    private void cargaDatos(){
-        
+    private void cargaDatos(ManejadorLaboratorio lab){
+        lab.registrarMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
+        lab.registrarProfesor(new Profesor("Mario Java"));
+        lab.registrarEstudiante(new Estudiante("Alejandra"));
+        lab.registrarEstudiante(new Estudiante("Andres"));
     }
 
 

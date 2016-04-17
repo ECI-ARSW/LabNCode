@@ -13,13 +13,11 @@ import java.util.ArrayList;
  */
 public abstract class Persona {
     private String nombre;
-    public ArrayList<Materia>materias;
     private int identificacion;
     public boolean conectado;
     
-    public Persona(String nombre, ArrayList<Materia> materias){
+    public Persona(String nombre){
         this.nombre = nombre; 
-        this.materias = materias;
         conectado = false;
     }
     
@@ -32,13 +30,7 @@ public abstract class Persona {
     
     public abstract boolean esProfesor();
     public abstract boolean esEstudiante();
-    public abstract boolean estoyEnMateria(Materia materia);
-    /**
-     * @return the materias
-     */
-    public ArrayList<Materia> getMaterias() {
-        return materias;
-    }
+
     
     public void setId(int id){
         this.identificacion= id;

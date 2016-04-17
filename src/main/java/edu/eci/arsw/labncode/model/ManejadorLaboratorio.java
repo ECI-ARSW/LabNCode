@@ -23,6 +23,7 @@ public class ManejadorLaboratorio {
     
     public ManejadorLaboratorio(){
         laboratorios = new Hashtable<String, Laboratorio>();
+        cargaDatos();
     }
     /*
     Retorna un arreglo con todos los profesores. 
@@ -39,6 +40,16 @@ public class ManejadorLaboratorio {
     
     public Persona getProfesor(int id){
         return personas.get(id);
+    }
+    
+    public void registrarProfesor(Profesor p){
+        p.setId(personas.size()-1);
+        personas.add(p);
+    }
+    
+    public void registrarEstudiante(Estudiante e){
+        e.setId(personas.size()-1);
+        personas.add(e);
     }
     
     public ArrayList<Laboratorio> getHistorial(Profesor p){
@@ -63,6 +74,7 @@ public class ManejadorLaboratorio {
         return labs;
     }
     
+
     /**
     * 
     * @param lab Laboratorio en la cual se va a crear la grupo
@@ -146,4 +158,10 @@ public class ManejadorLaboratorio {
     public Grupo getGrupo(String laboratorio, String Grupo){
         return laboratorios.get(laboratorio).getGrupo(Grupo);
     }
+
+    private void cargaDatos(){
+        
+    }
+
+
 }

@@ -13,6 +13,10 @@ import java.util.ArrayList;
  */
 public class Estudiante extends Persona{
 
+    public Estudiante(String nombre, ArrayList<Materia> materias) {
+        super(nombre, materias);
+    }
+    
     @Override
     public void cambiarEstado(Grupo sala) {
         super.conectado = !super.conectado;

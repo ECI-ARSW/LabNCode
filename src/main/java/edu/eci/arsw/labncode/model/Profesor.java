@@ -13,6 +13,10 @@ import java.util.ArrayList;
  */
 public class Profesor extends Persona {
 
+    public Profesor(String nombre, ArrayList<Materia> materias) {
+        super(nombre, materias);
+    }
+
     @Override
     public void cambiarEstado(Grupo sala) {
         sala.cambiarEstado();

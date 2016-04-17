@@ -5,6 +5,9 @@
  */
 package edu.eci.arsw.labncode.restcontroller;
 
+import edu.eci.arsw.labncode.model.Archivo;
+import edu.eci.arsw.labncode.model.Enunciado;
+import edu.eci.arsw.labncode.model.Grupo;
 import edu.eci.arsw.labncode.model.Laboratorio;
 import edu.eci.arsw.labncode.model.ManejadorLaboratorio;
 import edu.eci.arsw.labncode.model.Persona;
@@ -49,5 +52,37 @@ public class RestLaboratorio {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> persist(@RequestBody Laboratorio lab) {
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
+    
+    @RequestMapping(value="/laboratorio/", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Laboratorio> consordsLab() {
+        return labs.getLaboratorios();
+    }
+    
+    
+    @RequestMapping(value="laboratorio/{idLab}/", method = RequestMethod.GET)
+    @ResponseBody
+    public Laboratorio consordsLab(String idLab){
+        return labs.getLaboratorio(idLab);
+    }
+    
+    @RequestMapping(value="laboratorio/{idLab}/{idGrupo}/", method = RequestMethod.GET)
+    @ResponseBody
+    public Grupo consordsLab(String idLab, String idGrupo){
+        return labs.getGrupo(idLab, idGrupo);
+    }
+    
+    @RequestMapping(value="/laboratorio/{idLab}/enunciado/", method = RequestMethod.GET)
+    @ResponseBody
+    public Enunciado consordsLabEnu(String idLab){
+        return labs.getLaboratorio(idLab).getEnunciado();
+    }
+    
+    @RequestMapping(value="/laboratorio/{idLab}/{idGrupo}/{idArchivo}/", method = RequestMethod.GET)
+    @ResponseBody
+    public Archivo consordsLabEnu(String idLab,String idGrupo, int Archivo){
+        return labs.getLaboratorio(idLab).getGrupo(idGrupo).getArchivo(Archivo);
     }
 }

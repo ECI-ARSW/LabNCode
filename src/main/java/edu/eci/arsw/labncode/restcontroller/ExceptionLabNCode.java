@@ -12,7 +12,7 @@ package edu.eci.arsw.labncode.restcontroller;
 public class ExceptionLabNCode extends Exception{
     public final static String NoExisteEnSala="No existe estudiante en la sala" ;
     public final static String ConectadoEnSala="Existe al menos un conectado en la sala" ;
-
+    public final static String EstudianteOtraMateria="El estudiante no esta en la materia" ;
     public ExceptionLabNCode(String message) {
         super(message);
     }

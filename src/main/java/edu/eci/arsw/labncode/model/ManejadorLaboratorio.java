@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.labncode.model;
 
+import edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -27,7 +28,7 @@ public class ManejadorLaboratorio {
     Retorna un arreglo con todos los profesores. 
     */
     public ArrayList<Persona> getProfesores(){
-        ArrayList<Persona> profesores = new ArrayList<Persona>();
+        ArrayList<Persona> profesores = new ArrayList<>();
         for(Persona p : personas){
             if(p.esProfesor()){
                 profesores.add(p);
@@ -41,7 +42,7 @@ public class ManejadorLaboratorio {
     }
     
     public ArrayList<Laboratorio> getHistorial(Profesor p){
-        ArrayList<Laboratorio> labs = new ArrayList<Laboratorio>();
+        ArrayList<Laboratorio> labs = new ArrayList<>();
         ArrayList<Materia> mat = p.getMaterias();
         for(Materia m : mat){
             for(String s : laboratorios.keySet()){
@@ -54,12 +55,95 @@ public class ManejadorLaboratorio {
     }
  
     public ArrayList<Laboratorio> getLaboratorios(){
-        ArrayList<Laboratorio> labs = new ArrayList<Laboratorio>();
+        ArrayList<Laboratorio> labs = new ArrayList<>();
         Set<String> keys = laboratorios.keySet();
         for(String k : keys){
             labs.add(laboratorios.get(k));
         }
         return labs;
     }
-
+    
+    /**
+    * 
+    * @param lab Laboratorio en la cual se va a crear la grupo
+    * @param estudiante El estudiante quien crea la grupo
+    * @param nombre El nombre de la grupo
+    * @return Retorna el laboratorio con la grupo agregada.
+     * @throws edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode
+    */    
+    public Laboratorio crearSala(Laboratorio lab, Persona estudiante, String nombre) throws ExceptionLabNCode{
+        ArrayList<Persona> estudiantes= new ArrayList<>();
+        if(estudiante.estoyEnMateria(lab.getMateria())){
+            Grupo grupo=new Grupo(nombre,estudiantes,lab);
+            grupo=agregarPersonaSala(grupo, estudiante);
+            grupo=agregarPersonaSala(grupo, lab.getProfesor());
+            lab.agregarSala(grupo);
+        }else{
+            throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteOtraMateria);
+        }
+        return lab;
+    }
+    
+    /**
+     * 
+     * @param grupo Grupo en la cual se desea autorizar el ingreso a la persona
+     * @param persona La persona a la cual le vamos a dar la autorizacion
+     * @return retorna la grupo con la autorizacion 
+     * @throws edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode 
+     */
+    public Grupo agregarPersonaSala(Grupo grupo, Persona persona) throws ExceptionLabNCode{
+        if(persona.estoyEnMateria(grupo.getLaboratorio().getMateria())){
+            grupo.agregarPersona(persona);
+        }else{
+            throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteOtraMateria);
+        }
+        return grupo;
+    }
+    
+    /**
+     * 
+     * @param persona Persona que desea entrar a la grupo
+     * @param grupo La grupo a la cual la persona quiera entrar
+     * @return retorna la grupo con la persona conectada
+     * @throws ExceptionLabNCode Lanza excepcion cuando la persona no esta autorizada para ingresar a la grupo
+     */
+    public Grupo conectarPersona(Persona persona, Grupo grupo) throws ExceptionLabNCode{
+        if(grupo.conectarse(persona)){
+            return grupo;
+        }else{
+            throw new ExceptionLabNCode(ExceptionLabNCode.NoExisteEnSala);
+        }
+    }
+    /**
+     * 
+     * @param grupo la grupo en la cual el estudiante se va a desconectar
+     * @param persona la persona que se quiere desconectar
+     * @return retorna la grupo sin la persona
+     */
+    public Grupo desconectarEstudiante(Grupo grupo,Persona persona){
+        grupo.conectarse(persona);
+        return grupo;
+    }
+    
+    /**
+     * 
+     * @param grupo La grupo que se quiere borrar
+     * @param laboratorio Lanoratorio donde se va a borrar la grupo
+     * @throws ExceptionLabNCode Si el profesor o los estudiantes sigue conectados en la grupo
+     */
+    public void borrarSala(Grupo grupo, Laboratorio laboratorio) throws ExceptionLabNCode{
+        if(!grupo.conectados() && !laboratorio.isDisponibilidad()){
+           laboratorio.borrarSala(grupo);
+        }else{
+            throw new ExceptionLabNCode(ExceptionLabNCode.ConectadoEnSala);
+        }
+    }
+    
+    public Laboratorio getLaboratorio(String nombreLab){
+        return laboratorios.get(nombreLab);
+    }
+    
+    public Grupo getGrupo(String laboratorio, String Grupo){
+        return laboratorios.get(laboratorio).getGrupo(Grupo);
+    }
 }

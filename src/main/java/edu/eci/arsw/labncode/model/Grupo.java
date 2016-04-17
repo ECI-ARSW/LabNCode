@@ -6,23 +6,39 @@
 package edu.eci.arsw.labncode.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
  * @author 2101240
  */
-public class Sala {
+public class Grupo {
 
     private String nombre;
     private ArrayList<Persona> personas;
     private boolean profesor;
+    private Laboratorio laboratorio;
+    private Map<Integer,Archivo> archivos;
 
-    public Sala(String nombre, ArrayList<Persona> personas) {
+    public Grupo(String nombre, ArrayList<Persona> personas,Laboratorio laboratorio) {
         this.nombre = nombre;
         this.personas = personas;
         profesor = false;
+        this.laboratorio=laboratorio;
+        archivos=new TreeMap<>();
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
     public boolean isProfesor() {
         return profesor;
     }
@@ -64,4 +80,34 @@ public class Sala {
         return !conectado;
     }
 
+    public Laboratorio getLaboratorio() {
+        return laboratorio;
+    }
+
+    public void setLaboratorio(Laboratorio laboratorio) {
+        this.laboratorio = laboratorio;
+    }
+
+    public ArrayList getArchivo() {
+        ArrayList<Archivo> archivo= new ArrayList<>();
+        Iterator<Integer> keys=this.archivos.keySet().iterator();
+        while(keys.hasNext()){
+            int key=keys.next();
+            archivo.add(archivos.get(key));
+        }
+        return archivo;
+    }
+
+    public void setArchivo(ArrayList<Archivo> archivo) {
+        archivos.clear();
+        for(int i =0; i<archivo.size();i++){
+            archivos.put(archivo.get(i).getId(),archivo.get(i));
+        }
+    }
+    
+    public Archivo getArchivo(int idArchivo){
+        return archivos.get(idArchivo);
+    }
+    
+    
 }

@@ -7,26 +7,30 @@ package edu.eci.arsw.labncode.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 /**
  *
  * @author 2101240
  */
 public class Laboratorio {
+    
     private String nombre;
     private boolean disponibilidad;
     private Date fechaAct;
     private Date fechaDesc;
     private Enunciado enunciado;
-    private ArrayList<Sala> salas;
+    private Hashtable<String,Grupo> grupos;
     private Materia materia;
     
     /**
     * 
-    * @param sala sala con estudiantes de la materia del laboratorio
+    * @param grupo grupo con estudiantes de la materia del laboratorio
     */
-    public void agregarSala(Sala sala){
-        salas.add(sala);
+    public void agregarSala(Grupo grupo){
+        grupos.put(grupo.getNombre(), grupo);
     }
     /**
      * 
@@ -46,10 +50,10 @@ public class Laboratorio {
 
     /**
      * 
-     * @param sala sala la cual se desea eleiminar del laboratorio
+     * @param grupo grupo la cual se desea eleiminar del laboratorio
      */
-    public void borrarSala(Sala sala) {
-        salas.remove(sala);
+    public void borrarSala(Grupo grupo) {
+        grupos.remove(grupo.getNombre());
     }
     
     
@@ -112,15 +116,24 @@ public class Laboratorio {
     /**
      * @return the salas
      */
-    public ArrayList<Sala> getSalas() {
-        return salas;
+    public ArrayList<Grupo> getGrupo() {
+        ArrayList<Grupo> grupo=new ArrayList<>();
+        Iterator<String> keys=grupos.keySet().iterator();
+        while (keys.hasNext()) {
+            String key=keys.next();
+            grupo.add(grupos.get(key));
+        }
+        return grupo;
     }
 
     /**
-     * @param salas the salas to set
+     * @param grupo the salas to set
      */
-    public void setSalas(ArrayList<Sala> salas) {
-        this.salas = salas;
+    public void setGrupo(ArrayList<Grupo> grupo) {
+        grupos.clear();
+        for(int i =0; i<grupo.size();i++){
+            grupos.put(grupo.get(i).getNombre(), grupo.get(i));
+        }
     }
 
     /**
@@ -137,4 +150,9 @@ public class Laboratorio {
         this.materia = materia;
     }
 
+    
+    public Grupo getGrupo(String nombre){
+        return grupos.get(nombre);
+    }
+    
 }

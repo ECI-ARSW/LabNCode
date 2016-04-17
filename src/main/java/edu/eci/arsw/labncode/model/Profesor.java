@@ -5,23 +5,25 @@
  */
 package edu.eci.arsw.labncode.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 2101240
  */
-public class Profesor extends Persona{
+public class Profesor extends Persona {
 
     @Override
-    public void cambiarEstado(Sala sala) {
-         sala.cambiarEstado();
+    public void cambiarEstado(Grupo sala) {
+        sala.cambiarEstado();
     }
 
     @Override
-    public boolean estado(Sala sala) {
+    public boolean estado(Grupo sala) {
         return sala.isProfesor();
     }
-    
-     @Override
+
+    @Override
     public boolean esProfesor() {
         return true;
     }
@@ -30,5 +32,16 @@ public class Profesor extends Persona{
     public boolean esEstudiante() {
         return false;
     }
-    
+
+    @Override
+    public boolean estoyEnMateria(Materia materia) {
+        boolean si = true;
+        ArrayList<Materia> mat = super.materias;
+        for (int i = 0; i < mat.size() && si; i++) {
+            si = mat.get(i).getSigla().equals(materia.getSigla());
+        }
+        return !si;
+    }
 }
+
+

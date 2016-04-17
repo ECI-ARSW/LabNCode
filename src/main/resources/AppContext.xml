@@ -13,6 +13,6 @@
 ">
 
     
-    <bean name="ManejadorLaboratorio" class="edu.eci.arsw.labncode.model.ManejadorLaboratorio"></bean>
+    <bean name="labs" class="edu.eci.arsw.labncode.model.ManejadorLaboratorio"></bean>
     
 </beans>

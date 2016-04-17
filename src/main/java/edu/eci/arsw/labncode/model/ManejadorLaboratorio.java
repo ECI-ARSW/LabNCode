@@ -175,6 +175,10 @@ public class ManejadorLaboratorio {
     public Grupo getGrupo(String laboratorio, String Grupo){
         return laboratorios.get(laboratorio).getGrupo(Grupo);
     }
+    
+    public void addLaboratorio(){
+        
+    }
 
     private void cargaDatos(ManejadorLaboratorio lab){
         lab.registrarMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));

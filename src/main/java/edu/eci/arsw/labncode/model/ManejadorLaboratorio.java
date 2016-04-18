@@ -12,10 +12,9 @@ import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 /**
  *
- * @author MarÃ­aAlejandra
+ * @author MaríaAlejandra
  */
 public class ManejadorLaboratorio {
     private Hashtable<String, Laboratorio> laboratorios;
@@ -174,6 +173,10 @@ public class ManejadorLaboratorio {
     
     public Grupo getGrupo(String laboratorio, String Grupo){
         return laboratorios.get(laboratorio).getGrupo(Grupo);
+    }
+    
+    public void addLaboratorio(){
+        
     }
 
     private void cargaDatos(ManejadorLaboratorio lab){

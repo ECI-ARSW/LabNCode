@@ -35,5 +35,13 @@ public abstract class Persona {
     public void setId(int id){
         this.identificacion= id;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     
 }

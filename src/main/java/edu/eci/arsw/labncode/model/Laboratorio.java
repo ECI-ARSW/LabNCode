@@ -25,6 +25,8 @@ public class Laboratorio {
     private Hashtable<String,Grupo> grupos;
     private Materia materia;
     
+    
+    
     /**
     * 
     * @param grupo grupo con estudiantes de la materia del laboratorio

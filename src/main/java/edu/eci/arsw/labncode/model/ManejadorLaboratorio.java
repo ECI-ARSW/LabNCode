@@ -40,7 +40,10 @@ public class ManejadorLaboratorio {
         return profesores;
     }
     
-    public Persona getProfesor(int id){
+    public Persona getProfesor(int id) throws ExceptionLabNCode{
+        if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.ProfesorInexistente);
+        if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.ProfesorInexistente);
+        if(!personas.get(id).esProfesor()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsProfesor);
         return personas.get(id);
     }
     
@@ -49,7 +52,10 @@ public class ManejadorLaboratorio {
         personas.add(p);
     }
     
-    public Persona getEstudiante (int id){
+    public Persona getEstudiante (int id) throws ExceptionLabNCode{
+        if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
+        if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
+        if(!personas.get(id).esProfesor()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsEstudiante);
         return personas.get(id);
     }
     
@@ -196,8 +202,11 @@ public class ManejadorLaboratorio {
     private void cargaDatos(ManejadorLaboratorio lab){
         lab.addMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
         lab.addProfesor(new Profesor("Mario Java"));
+        materias.get("ARSW").registrarPersona(personas.get(0));
         lab.addEstudiante(new Estudiante("Alejandra"));
         lab.addEstudiante(new Estudiante("Andres"));
+        lab.addEstudiante(new Estudiante("Mico"));
+        lab.addLaboratorio(new Laboratorio("ARSW-Lab", materias.get("Materia")));
     }
 
 

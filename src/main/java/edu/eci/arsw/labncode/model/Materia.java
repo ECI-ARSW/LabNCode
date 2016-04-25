@@ -22,6 +22,7 @@ public class Materia {
         this.nombre= nombre; 
         this.sigla = sigla;
         this.descripcion= descripcion;
+        personas = new ArrayList<Persona>();
     }
     
     public void registrarPersona(Persona p){

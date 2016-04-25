@@ -45,8 +45,16 @@ public class RestLaboratorio {
         return labs.getProfesores();
     }
     
+        
+    @RequestMapping(value="/laboratorio", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Laboratorio> getLaboratorios() {
+        return labs.getLaboratorios();
+    }
+    
+    
     @RequestMapping(value="/profesor/{idProf}", method = RequestMethod.GET)
-    public Persona getProfesor(@PathVariable Integer idProf) {
+    public Persona getProfesor(@PathVariable Integer idProf) throws ExceptionLabNCode {
         return labs.getProfesor(idProf);
     }
     
@@ -56,8 +64,8 @@ public class RestLaboratorio {
         return labs.getEstudiantes();
     }
     
-    @RequestMapping(value="/profesor/{idProf}", method = RequestMethod.GET)
-    public Persona getEstudiante(@PathVariable Integer idEst) {
+    @RequestMapping(value="/estudiante/{idEst}", method = RequestMethod.GET)
+    public Persona getEstudiante(@PathVariable Integer idEst) throws ExceptionLabNCode {
         return labs.getEstudiante(idEst);
     }
     
@@ -67,14 +75,7 @@ public class RestLaboratorio {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
-    
-    @RequestMapping(value="/laboratorio", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Laboratorio> consordsLab() {
-        System.out.println("aqui falla");
-        return labs.getLaboratorios();
-    }
-    
+
     
     @RequestMapping(value="laboratorio/{idLab}", method = RequestMethod.GET)
     @ResponseBody

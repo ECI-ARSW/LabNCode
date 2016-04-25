@@ -44,17 +44,31 @@ public class ManejadorLaboratorio {
         return personas.get(id);
     }
     
-    public void registrarProfesor(Profesor p){
-        p.setId(personas.size()-1);
+    public void addProfesor(Profesor p){
+        p.setId(personas.size());
         personas.add(p);
     }
     
-    public void registrarEstudiante(Estudiante e){
-        e.setId(personas.size()-1);
+    public Persona getEstudiante (int id){
+        return personas.get(id);
+    }
+    
+    public ArrayList<Persona> getEstudiantes(){
+        ArrayList<Persona> estudiantes = new ArrayList<>();
+        for(Persona p : personas){
+            if(p.esEstudiante()){
+                estudiantes.add(p);
+            }
+        }
+        return estudiantes;
+    }
+    
+    public void addEstudiante(Estudiante e){
+        e.setId(personas.size());
         personas.add(e);
     }
     
-    public void registrarMateria(Materia m){
+    public void addMateria(Materia m){
         materias.put(m.getSigla(), m);
     }
     
@@ -180,10 +194,10 @@ public class ManejadorLaboratorio {
     }
 
     private void cargaDatos(ManejadorLaboratorio lab){
-        lab.registrarMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
-        lab.registrarProfesor(new Profesor("Mario Java"));
-        lab.registrarEstudiante(new Estudiante("Alejandra"));
-        lab.registrarEstudiante(new Estudiante("Andres"));
+        lab.addMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
+        lab.addProfesor(new Profesor("Mario Java"));
+        lab.addEstudiante(new Estudiante("Alejandra"));
+        lab.addEstudiante(new Estudiante("Andres"));
     }
 
 

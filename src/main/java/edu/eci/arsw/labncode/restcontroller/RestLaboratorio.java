@@ -39,16 +39,26 @@ public class RestLaboratorio {
     ManejadorLaboratorio labs;
     
     
-    @RequestMapping(value="/profesor/", method = RequestMethod.GET)
+    @RequestMapping(value="/profesor", method = RequestMethod.GET)
     @ResponseBody
     public List<Persona> getProfesores() {
         return labs.getProfesores();
     }
     
-    @RequestMapping(value="/profesor/{idProf}/", method = RequestMethod.GET)
-    @ResponseBody
-    public Persona getProfesor(int idProf) {
+    @RequestMapping(value="/profesor/{idProf}", method = RequestMethod.GET)
+    public Persona getProfesor(@PathVariable Integer idProf) {
         return labs.getProfesor(idProf);
+    }
+    
+    @RequestMapping(value="/estudiante", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Persona> getEstudiante() {
+        return labs.getEstudiantes();
+    }
+    
+    @RequestMapping(value="/profesor/{idProf}", method = RequestMethod.GET)
+    public Persona getEstudiante(@PathVariable Integer idEst) {
+        return labs.getEstudiante(idEst);
     }
     
     @RequestMapping(method = RequestMethod.POST)
@@ -58,7 +68,7 @@ public class RestLaboratorio {
     }
     
     
-    @RequestMapping(value="/laboratorio/", method = RequestMethod.GET)
+    @RequestMapping(value="/laboratorio", method = RequestMethod.GET)
     @ResponseBody
     public List<Laboratorio> consordsLab() {
         System.out.println("aqui falla");
@@ -66,25 +76,25 @@ public class RestLaboratorio {
     }
     
     
-    @RequestMapping(value="laboratorio/{idLab}/", method = RequestMethod.GET)
+    @RequestMapping(value="laboratorio/{idLab}", method = RequestMethod.GET)
     @ResponseBody
     public Laboratorio consordsLab(String idLab){
         return labs.getLaboratorio(idLab);
     }
     
-    @RequestMapping(value="laboratorio/{idLab}/{idGrupo}/", method = RequestMethod.GET)
+    @RequestMapping(value="laboratorio/{idLab}/{idGrupo}", method = RequestMethod.GET)
     @ResponseBody
     public Grupo consordsLab(String idLab, String idGrupo){
         return labs.getGrupo(idLab, idGrupo);
     }
     
-    @RequestMapping(value="/laboratorio/{idLab}/enunciado/", method = RequestMethod.GET)
+    @RequestMapping(value="/laboratorio/{idLab}/enunciado", method = RequestMethod.GET)
     @ResponseBody
     public Enunciado consordsLabEnu(String idLab){
         return labs.getLaboratorio(idLab).getEnunciado();
     }
     
-    @RequestMapping(value="/laboratorio/{idLab}/{idGrupo}/{idArchivo}/", method = RequestMethod.GET)
+    @RequestMapping(value="/laboratorio/{idLab}/{idGrupo}/{idArchivo}", method = RequestMethod.GET)
     @ResponseBody
     public Archivo consordsLabEnu(String idLab,String idGrupo, int Archivo){
         return labs.getLaboratorio(idLab).getGrupo(idGrupo).getArchivo(Archivo);

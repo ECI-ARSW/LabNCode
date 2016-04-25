@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author MaríaAlejandra
+ * @author Marï¿½aAlejandra
  */
 public class ManejadorLaboratorio {
     private Hashtable<String, Laboratorio> laboratorios;
@@ -175,8 +175,8 @@ public class ManejadorLaboratorio {
         return laboratorios.get(laboratorio).getGrupo(Grupo);
     }
     
-    public void addLaboratorio(){
-        
+    public void addLaboratorio(Laboratorio lab){
+        laboratorios.put(lab.getNombre(), lab);
     }
 
     private void cargaDatos(ManejadorLaboratorio lab){

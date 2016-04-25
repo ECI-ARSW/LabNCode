@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MaríaAlejandra
  */
 @RestController
-@RequestMapping("/labncode/rest/") 
+@RequestMapping("/servicios") 
 /*
 El historial va mas orientado al profesor.Pensar en recursos y no en servicios
 
@@ -41,18 +41,19 @@ public class RestLaboratorio {
     
     @RequestMapping(value="/profesor/", method = RequestMethod.GET)
     @ResponseBody
-    public List<Persona> consords() {
+    public List<Persona> getProfesores() {
         return labs.getProfesores();
     }
     
     @RequestMapping(value="/profesor/{idProf}/", method = RequestMethod.GET)
     @ResponseBody
-    public Persona consords(int idProf) {
+    public Persona getProfesor(int idProf) {
         return labs.getProfesor(idProf);
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> persist(@RequestBody Laboratorio lab) {
+    public ResponseEntity<?> addLaboratorio(@RequestBody Laboratorio lab) {
+        labs.addLaboratorio(lab);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     

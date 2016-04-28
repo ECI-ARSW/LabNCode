@@ -55,7 +55,7 @@ public class ManejadorLaboratorio {
     public Persona getEstudiante (int id) throws ExceptionLabNCode{
         if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
         if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
-        if(!personas.get(id).esProfesor()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsEstudiante);
+        if(personas.get(id).esProfesor()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsEstudiante);
         return personas.get(id);
     }
     
@@ -119,13 +119,13 @@ public class ManejadorLaboratorio {
     * @return Retorna el laboratorio con la grupo agregada.
      * @throws edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode
     */    
-    public Laboratorio crearSala(Laboratorio lab, Persona estudiante, String nombre) throws ExceptionLabNCode{
+    public Laboratorio newSala(Laboratorio lab, Persona estudiante, String nombre) throws ExceptionLabNCode{
         ArrayList<Persona> estudiantes= new ArrayList<>();
         if(lab.getMateria().estaInscrito(estudiante)){
             Grupo grupo=new Grupo(nombre,estudiantes,lab);
-            grupo=agregarPersonaSala(grupo, estudiante);
-            grupo=agregarPersonaSala(grupo, lab.getProfesor());
-            lab.agregarSala(grupo);
+            grupo=addPersonaGrupoAutorizacion(grupo, estudiante);
+            grupo=addPersonaGrupoAutorizacion(grupo, lab.getProfesor());
+            lab.addGrupo(grupo);
         }else{
             throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteOtraMateria);
         }
@@ -139,7 +139,7 @@ public class ManejadorLaboratorio {
      * @return retorna la grupo con la autorizacion 
      * @throws edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode 
      */
-    public Grupo agregarPersonaSala(Grupo grupo, Persona persona) throws ExceptionLabNCode{
+    public Grupo addPersonaGrupoAutorizacion(Grupo grupo, Persona persona) throws ExceptionLabNCode{
         if(grupo.getLaboratorio().getMateria().estaInscrito(persona)){
             grupo.agregarPersona(persona);
         }else{
@@ -152,10 +152,10 @@ public class ManejadorLaboratorio {
      * 
      * @param persona Persona que desea entrar a la grupo
      * @param grupo La grupo a la cual la persona quiera entrar
-     * @return retorna la grupo con la persona conectada
+     * @return retorna  grupo con la persona conectada
      * @throws ExceptionLabNCode Lanza excepcion cuando la persona no esta autorizada para ingresar a la grupo
      */
-    public Grupo conectarPersona(Persona persona, Grupo grupo) throws ExceptionLabNCode{
+    public Grupo addPersonaGrupo(Persona persona, Grupo grupo) throws ExceptionLabNCode{
         if(grupo.conectarse(persona)){
             return grupo;
         }else{
@@ -168,7 +168,7 @@ public class ManejadorLaboratorio {
      * @param persona la persona que se quiere desconectar
      * @return retorna la grupo sin la persona
      */
-    public Grupo desconectarEstudiante(Grupo grupo,Persona persona){
+    public Grupo removeEstudiante(Grupo grupo,Persona persona){
         grupo.conectarse(persona);
         return grupo;
     }
@@ -179,7 +179,7 @@ public class ManejadorLaboratorio {
      * @param laboratorio Lanoratorio donde se va a borrar la grupo
      * @throws ExceptionLabNCode Si el profesor o los estudiantes sigue conectados en la grupo
      */
-    public void borrarSala(Grupo grupo, Laboratorio laboratorio) throws ExceptionLabNCode{
+    public void deleteGrupo(Grupo grupo, Laboratorio laboratorio) throws ExceptionLabNCode{
         if(!grupo.conectados() && !laboratorio.isDisponibilidad()){
            laboratorio.borrarSala(grupo);
         }else{
@@ -201,11 +201,11 @@ public class ManejadorLaboratorio {
 
     private void cargaDatos(ManejadorLaboratorio lab){
         lab.addMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
-        lab.addProfesor(new Profesor("Mario Java"));
+        lab.addProfesor(new Profesor("Mario Java",123456));
         materias.get("ARSW").registrarPersona(personas.get(0));
-        lab.addEstudiante(new Estudiante("Alejandra"));
-        lab.addEstudiante(new Estudiante("Andres"));
-        lab.addEstudiante(new Estudiante("Mico"));
+        lab.addEstudiante(new Estudiante("Alejandra",21000012));
+        lab.addEstudiante(new Estudiante("Andres",2101240));
+        lab.addEstudiante(new Estudiante("Mico",2115265));
         lab.addLaboratorio(new Laboratorio("ARSW-Lab", materias.get("Materia")));
     }
 

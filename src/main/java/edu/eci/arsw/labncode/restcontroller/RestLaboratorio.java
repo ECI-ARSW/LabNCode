@@ -12,9 +12,17 @@ import edu.eci.arsw.labncode.model.Laboratorio;
 import edu.eci.arsw.labncode.model.ManejadorLaboratorio;
 import edu.eci.arsw.labncode.model.Persona;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.management.Query.value;
+import static javax.management.Query.value;
+import static javax.management.Query.value;
+import static javax.management.Query.value;
+import static org.junit.runner.Request.method;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +69,7 @@ public class RestLaboratorio {
     @RequestMapping(value="/estudiante", method = RequestMethod.GET)
     @ResponseBody
     public List<Persona> getEstudiante() {
+        System.out.println("aqui entra");
         return labs.getEstudiantes();
     }
     
@@ -74,30 +83,39 @@ public class RestLaboratorio {
         labs.addLaboratorio(lab);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    
 
     
     @RequestMapping(value="laboratorio/{idLab}", method = RequestMethod.GET)
     @ResponseBody
-    public Laboratorio consordsLab(String idLab){
+    public Laboratorio getLab(String idLab){
         return labs.getLaboratorio(idLab);
+    }
+    
+    @RequestMapping(value="laboratorio/{idLab}/{idEstudiante}/{grupo}" , method=RequestMethod.POST)
+    public ResponseEntity<?> addGrupo(String idLab , String idEstudiante, String grupo) {
+        try {
+            labs.newSala(labs.getLaboratorio(idLab), labs.getEstudiante(Integer.parseInt(idEstudiante)), grupo);
+                    } catch (ExceptionLabNCode ex) {
+            Logger.getLogger(RestLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
     @RequestMapping(value="laboratorio/{idLab}/{idGrupo}", method = RequestMethod.GET)
     @ResponseBody
-    public Grupo consordsLab(String idLab, String idGrupo){
+    public Grupo getGrupo(String idLab, String idGrupo){
         return labs.getGrupo(idLab, idGrupo);
     }
     
     @RequestMapping(value="/laboratorio/{idLab}/enunciado", method = RequestMethod.GET)
     @ResponseBody
-    public Enunciado consordsLabEnu(String idLab){
+    public Enunciado getEnunciado(String idLab){
         return labs.getLaboratorio(idLab).getEnunciado();
     }
     
     @RequestMapping(value="/laboratorio/{idLab}/{idGrupo}/{idArchivo}", method = RequestMethod.GET)
     @ResponseBody
-    public Archivo consordsLabEnu(String idLab,String idGrupo, int Archivo){
+    public Archivo getArchivo(String idLab,String idGrupo, int Archivo){
         return labs.getLaboratorio(idLab).getGrupo(idGrupo).getArchivo(Archivo);
     }
 }

@@ -13,8 +13,10 @@ import java.util.ArrayList;
  */
 public class Profesor extends Persona {
 
-    public Profesor(String nombre) {
-        super(nombre);
+    public Profesor(String nombre,int identificacion) {
+        super(nombre,identificacion);
+        super.profesor=true;
+        super.estudiante=false;
     }
 
     @Override

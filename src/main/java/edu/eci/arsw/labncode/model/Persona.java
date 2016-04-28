@@ -15,10 +15,25 @@ public abstract class Persona {
     private String nombre;
     private int identificacion;
     public boolean conectado;
+    public boolean profesor;
+    public boolean estudiante;
     
-    public Persona(String nombre){
+    public Persona(String nombre, int identificacion){
         this.nombre = nombre; 
+        this.identificacion=identificacion;
         conectado = false;
+    }
+
+    public boolean isConectado() {
+        return conectado;
+    }
+
+    public boolean isProfesor() {
+        return profesor;
+    }
+
+    public boolean isEstudiante() {
+        return estudiante;
     }
     
     public int getIdentificacion() {

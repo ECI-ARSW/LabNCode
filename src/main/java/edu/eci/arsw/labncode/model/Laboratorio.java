@@ -35,7 +35,7 @@ public class Laboratorio {
      *
      * @param grupo grupo con estudiantes de la materia del laboratorio
      */
-    public void agregarSala(Grupo grupo) {
+    public void addGrupo(Grupo grupo) {
         grupos.put(grupo.getNombre(), grupo);
     }
 
@@ -45,7 +45,7 @@ public class Laboratorio {
      */
     public Persona getProfesor() {
         //return materia.getProfesor();
-        return new Profesor("Micoli");
+        return new Profesor("Micoli",12345897);
     }
 
     /**

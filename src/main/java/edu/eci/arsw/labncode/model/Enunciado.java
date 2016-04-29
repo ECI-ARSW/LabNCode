@@ -6,6 +6,7 @@
 package edu.eci.arsw.labncode.model;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  *
@@ -13,5 +14,10 @@ import java.util.ArrayList;
  */
 public class Enunciado {
     private String nombre;
-    private ArrayList<Punto> puntos;
+    private Hashtable<String,Punto> puntos;
+    
+    public Punto getPunto(String nombre){
+        return puntos.get(nombre);
+    }
+    
 }

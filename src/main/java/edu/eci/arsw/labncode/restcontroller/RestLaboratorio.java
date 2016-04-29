@@ -11,6 +11,7 @@ import edu.eci.arsw.labncode.model.Grupo;
 import edu.eci.arsw.labncode.model.Laboratorio;
 import edu.eci.arsw.labncode.model.ManejadorLaboratorio;
 import edu.eci.arsw.labncode.model.Persona;
+import edu.eci.arsw.labncode.model.Punto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,7 +65,6 @@ public class RestLaboratorio {
         return labs.getLaboratorios();
     }
     
-    
     @RequestMapping(value="laboratorio/{idLab}/", method = RequestMethod.GET)
     @ResponseBody
     public Laboratorio consordsLab(String idLab){
@@ -85,7 +85,15 @@ public class RestLaboratorio {
     
     @RequestMapping(value="/laboratorio/{idLab}/{idGrupo}/{idArchivo}/", method = RequestMethod.GET)
     @ResponseBody
-    public Archivo consordsLabEnu(String idLab,String idGrupo, int Archivo){
+    public Archivo consordsLabArc(String idLab,String idGrupo, int Archivo){
         return labs.getLaboratorio(idLab).getGrupo(idGrupo).getArchivo(Archivo);
     }
+    
+    
+    @RequestMapping(value="/laboratorio/{idLab}/enunciado/{idPunto}/", method = RequestMethod.GET)
+    @ResponseBody
+    public Punto consordsLabEnuPunto(String idLab,String idGrupo, String nombrePunto){
+        return labs.getLaboratorio(idLab).getEnunciado().getPunto(nombrePunto);
+    }
+    
 }

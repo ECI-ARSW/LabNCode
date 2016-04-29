@@ -80,10 +80,6 @@ public class Grupo {
         return !conectado;
     }
 
-    public Laboratorio getLaboratorio() {
-        return laboratorio;
-    }
-
     public void setLaboratorio(Laboratorio laboratorio) {
         this.laboratorio = laboratorio;
     }
@@ -107,6 +103,10 @@ public class Grupo {
     
     public Archivo getArchivo(int idArchivo){
         return archivos.get(idArchivo);
+    }
+
+    public Laboratorio laboratorio() {
+       return laboratorio;
     }
     
     

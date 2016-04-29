@@ -13,8 +13,10 @@ import java.util.ArrayList;
  */
 public class Estudiante extends Persona{
 
-    public Estudiante(String nombre) {
-        super(nombre);
+    public Estudiante(String nombre,int identificacion) {
+        super(nombre,identificacion);
+         super.profesor=false;
+          super.estudiante=true;
     }
     
     @Override
@@ -29,11 +31,13 @@ public class Estudiante extends Persona{
 
     @Override
     public boolean esProfesor() {
+       
         return false;
     }
 
     @Override
     public boolean esEstudiante() {
+        
         return true;
     }
 

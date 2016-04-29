@@ -16,56 +16,55 @@ import java.util.Iterator;
  * @author 2101240
  */
 public class Laboratorio {
-    
+
     private String nombre;
     private boolean disponibilidad;
     private Date fechaAct;
     private Date fechaDesc;
     private Enunciado enunciado;
-    private Hashtable<String,Grupo> grupos;
+    private Hashtable<String, Grupo> grupos;
     private Materia materia;
-    
-    
-    
+
+    public Laboratorio(String nombre, Materia materia) {
+        this.nombre = nombre;
+        this.materia = materia;
+        disponibilidad = true;
+        grupos= new Hashtable<>();
+    }
+
     /**
-    * 
-    * @param grupo grupo con estudiantes de la materia del laboratorio
-    */
-    public void agregarSala(Grupo grupo){
+     *
+     * @param grupo grupo con estudiantes de la materia del laboratorio
+     */
+    public void addGrupo(Grupo grupo) {
         grupos.put(grupo.getNombre(), grupo);
     }
+
     /**
-     * 
-     * @return Profesor  retorna el profesor del laboratorio
+     *
+     * @return Profesor retorna el profesor del laboratorio
      */
-    public Persona getProfesor(){
+    public Persona getProfesor() {
         return materia.getProfesor();
     }
 
     /**
-     * 
-     * @return boolean Retorna True si el laboratorio esta disponible para las sala de codigo y False lo contrario
+     *
+     * @return boolean Retorna True si el laboratorio esta disponible para las
+     * sala de codigo y False lo contrario
      */
     public boolean isDisponibilidad() {
         return disponibilidad;
     }
 
     /**
-     * 
+     *
      * @param grupo grupo la cual se desea eleiminar del laboratorio
      */
     public void borrarSala(Grupo grupo) {
         grupos.remove(grupo.getNombre());
     }
-    
-    
 
-    public Laboratorio(String nombre, Materia materia){
-        this.nombre = nombre; 
-        this.materia = materia; 
-        disponibilidad = true; 
-    }
-    
     /**
      * @return the nombre
      */
@@ -119,10 +118,10 @@ public class Laboratorio {
      * @return the salas
      */
     public ArrayList<Grupo> getGrupo() {
-        ArrayList<Grupo> grupo=new ArrayList<>();
-        Iterator<String> keys=grupos.keySet().iterator();
+        ArrayList<Grupo> grupo = new ArrayList<>();
+        Iterator<String> keys = grupos.keySet().iterator();
         while (keys.hasNext()) {
-            String key=keys.next();
+            String key = keys.next();
             grupo.add(grupos.get(key));
         }
         return grupo;
@@ -133,7 +132,7 @@ public class Laboratorio {
      */
     public void setGrupo(ArrayList<Grupo> grupo) {
         grupos.clear();
-        for(int i =0; i<grupo.size();i++){
+        for (int i = 0; i < grupo.size(); i++) {
             grupos.put(grupo.get(i).getNombre(), grupo.get(i));
         }
     }
@@ -152,9 +151,8 @@ public class Laboratorio {
         this.materia = materia;
     }
 
-    
-    public Grupo getGrupo(String nombre){
+    public Grupo getGrupo(String nombre) {
         return grupos.get(nombre);
     }
-    
+
 }

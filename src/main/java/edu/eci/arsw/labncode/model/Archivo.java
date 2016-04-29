@@ -34,9 +34,8 @@ public class Archivo {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void addLineaDeCodigo(String linea){        
+        codigo+=linea+"\n"; 
     }
-    
     
 }

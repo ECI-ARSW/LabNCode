@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author MaríaAlejandra
+ * @author Marï¿½aAlejandra
  */
 public class ManejadorLaboratorio {
     private Hashtable<String, Laboratorio> laboratorios;
@@ -40,21 +40,41 @@ public class ManejadorLaboratorio {
         return profesores;
     }
     
-    public Persona getProfesor(int id){
+    public Persona getProfesor(int id) throws ExceptionLabNCode{
+        if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.ProfesorInexistente);
+        if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.ProfesorInexistente);
+        if(!personas.get(id).esProfesor()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsProfesor);
         return personas.get(id);
     }
     
-    public void registrarProfesor(Profesor p){
-        p.setId(personas.size()-1);
+    public void addProfesor(Profesor p){
+        p.setId(personas.size());
         personas.add(p);
     }
     
-    public void registrarEstudiante(Estudiante e){
-        e.setId(personas.size()-1);
+    public Persona getEstudiante (int id) throws ExceptionLabNCode{
+        if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
+        if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
+        if(personas.get(id).esProfesor()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsEstudiante);
+        return personas.get(id);
+    }
+    
+    public ArrayList<Persona> getEstudiantes(){
+        ArrayList<Persona> estudiantes = new ArrayList<>();
+        for(Persona p : personas){
+            if(p.esEstudiante()){
+                estudiantes.add(p);
+            }
+        }
+        return estudiantes;
+    }
+    
+    public void addEstudiante(Estudiante e){
+        e.setId(personas.size());
         personas.add(e);
     }
     
-    public void registrarMateria(Materia m){
+    public void addMateria(Materia m){
         materias.put(m.getSigla(), m);
     }
     
@@ -99,13 +119,13 @@ public class ManejadorLaboratorio {
     * @return Retorna el laboratorio con la grupo agregada.
      * @throws edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode
     */    
-    public Laboratorio crearSala(Laboratorio lab, Persona estudiante, String nombre) throws ExceptionLabNCode{
+    public Laboratorio newSala(Laboratorio lab, Persona estudiante, String nombre) throws ExceptionLabNCode{
         ArrayList<Persona> estudiantes= new ArrayList<>();
         if(lab.getMateria().estaInscrito(estudiante)){
             Grupo grupo=new Grupo(nombre,estudiantes,lab);
-            grupo=agregarPersonaSala(grupo, estudiante);
-            grupo=agregarPersonaSala(grupo, lab.getProfesor());
-            lab.agregarSala(grupo);
+            grupo=addPersonaGrupoAutorizacion(grupo, estudiante);
+            grupo=addPersonaGrupoAutorizacion(grupo, lab.getProfesor());
+            lab.addGrupo(grupo);
         }else{
             throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteOtraMateria);
         }
@@ -119,8 +139,8 @@ public class ManejadorLaboratorio {
      * @return retorna la grupo con la autorizacion 
      * @throws edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode 
      */
-    public Grupo agregarPersonaSala(Grupo grupo, Persona persona) throws ExceptionLabNCode{
-        if(grupo.getLaboratorio().getMateria().estaInscrito(persona)){
+    public Grupo addPersonaGrupoAutorizacion(Grupo grupo, Persona persona) throws ExceptionLabNCode{
+        if(grupo.laboratorio().getMateria().estaInscrito(persona)){
             grupo.agregarPersona(persona);
         }else{
             throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteOtraMateria);
@@ -132,10 +152,10 @@ public class ManejadorLaboratorio {
      * 
      * @param persona Persona que desea entrar a la grupo
      * @param grupo La grupo a la cual la persona quiera entrar
-     * @return retorna la grupo con la persona conectada
+     * @return retorna  grupo con la persona conectada
      * @throws ExceptionLabNCode Lanza excepcion cuando la persona no esta autorizada para ingresar a la grupo
      */
-    public Grupo conectarPersona(Persona persona, Grupo grupo) throws ExceptionLabNCode{
+    public Grupo addPersonaGrupo(Persona persona, Grupo grupo) throws ExceptionLabNCode{
         if(grupo.conectarse(persona)){
             return grupo;
         }else{
@@ -148,7 +168,7 @@ public class ManejadorLaboratorio {
      * @param persona la persona que se quiere desconectar
      * @return retorna la grupo sin la persona
      */
-    public Grupo desconectarEstudiante(Grupo grupo,Persona persona){
+    public Grupo removeEstudiante(Grupo grupo,Persona persona){
         grupo.conectarse(persona);
         return grupo;
     }
@@ -159,7 +179,7 @@ public class ManejadorLaboratorio {
      * @param laboratorio Lanoratorio donde se va a borrar la grupo
      * @throws ExceptionLabNCode Si el profesor o los estudiantes sigue conectados en la grupo
      */
-    public void borrarSala(Grupo grupo, Laboratorio laboratorio) throws ExceptionLabNCode{
+    public void deleteGrupo(Grupo grupo, Laboratorio laboratorio) throws ExceptionLabNCode{
         if(!grupo.conectados() && !laboratorio.isDisponibilidad()){
            laboratorio.borrarSala(grupo);
         }else{
@@ -175,15 +195,22 @@ public class ManejadorLaboratorio {
         return laboratorios.get(laboratorio).getGrupo(Grupo);
     }
     
-    public void addLaboratorio(){
+    public void addLaboratorio(Laboratorio lab){
+        laboratorios.put(lab.getNombre(), lab);
         
     }
 
     private void cargaDatos(ManejadorLaboratorio lab){
-        lab.registrarMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
-        lab.registrarProfesor(new Profesor("Mario Java"));
-        lab.registrarEstudiante(new Estudiante("Alejandra"));
-        lab.registrarEstudiante(new Estudiante("Andres"));
+        lab.addMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
+        lab.addProfesor(new Profesor("Mario Java",123456));
+        materias.get("ARSW").registrarPersona(personas.get(0));
+        lab.addEstudiante(new Estudiante("Alejandra",21000012));
+        lab.addEstudiante(new Estudiante("Andres",2101240));
+        lab.addEstudiante(new Estudiante("Mico",2115265));
+        materias.get("ARSW").registrarPersona(personas.get(1));
+        materias.get("ARSW").registrarPersona(personas.get(2));
+        materias.get("ARSW").registrarPersona(personas.get(3));
+        lab.addLaboratorio(new Laboratorio("ARSW-Lab", materias.get("ARSW")));
     }
 
 

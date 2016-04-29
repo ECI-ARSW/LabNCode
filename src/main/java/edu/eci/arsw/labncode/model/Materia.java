@@ -22,6 +22,7 @@ public class Materia {
         this.nombre= nombre; 
         this.sigla = sigla;
         this.descripcion= descripcion;
+        personas = new ArrayList<Persona>();
     }
     
     public void registrarPersona(Persona p){
@@ -54,11 +55,12 @@ public class Materia {
     }
     
     public boolean estaInscrito(Persona p){
-       boolean r = false;
-       for(int i =0; i<personas.size(); i++){
-           r=personas.get(i).getIdentificacion()==p.getIdentificacion();
+       boolean r = true;
+       for(int i =0; i<personas.size() && r; i++){
+           r=personas.get(i).getIdentificacion()!=p.getIdentificacion();
+           System.out.println(personas.get(i).getIdentificacion()+ " "+ p.getIdentificacion());
        }
-       return r;
+       return !r;
     }
 
 }

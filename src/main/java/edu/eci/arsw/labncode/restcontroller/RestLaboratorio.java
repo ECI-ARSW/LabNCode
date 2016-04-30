@@ -32,15 +32,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 
  *
  * @author MaríaAlejandra
  */
 @RestController
 @RequestMapping("/servicios")
-/*
-El historial va mas orientado al profesor.Pensar en recursos y no en servicios
-
- */
 
 public class RestLaboratorio {
 
@@ -120,7 +117,7 @@ public class RestLaboratorio {
 
     @RequestMapping(value = "/laboratorio/{idLab}/enunciado/{idPunto}/", method = RequestMethod.GET)
     @ResponseBody
-    public Punto getLabEnuPunto(String idLab, String idGrupo, String nombrePunto) {
+    public Punto getLabEnuPunto(String idLab, String idGrupo, Integer nombrePunto) {
         return labs.getLaboratorio(idLab).getEnunciado().getPunto(nombrePunto);
     }
 

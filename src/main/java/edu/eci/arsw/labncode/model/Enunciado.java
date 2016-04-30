@@ -13,11 +13,35 @@ import java.util.Hashtable;
  * @author 2101240
  */
 public class Enunciado {
-    private String nombre;
-    private Hashtable<String,Punto> puntos;
+    private ArrayList<Punto> puntos;
     
-    public Punto getPunto(String nombre){
-        return puntos.get(nombre);
+    public Enunciado(){
+        puntos = new ArrayList<Punto>();
+        
     }
+    
+    public Punto getPunto(int nombre){
+        return getPuntos().get(nombre);
+    }
+    
+    public void addPunto(Punto punto){
+        getPuntos().add(punto);
+    }
+
+    /**
+     * @return the puntos
+     */
+    public ArrayList<Punto> getPuntos() {
+        return puntos;
+    }
+
+    /**
+     * @param puntos the puntos to set
+     */
+    public void setPuntos(ArrayList<Punto> puntos) {
+        this.puntos = puntos;
+    }
+    
+    
     
 }

@@ -31,12 +31,12 @@ public class Profesor extends Persona {
 
     @Override
     public boolean esProfesor() {
-        return true;
+        return super.profesor;
     }
 
     @Override
     public boolean esEstudiante() {
-        return false;
+        return super.estudiante;
     }
 
 }

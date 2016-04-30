@@ -82,8 +82,14 @@ public class Laboratorio {
     /**
      * @return the fechaAct
      */
-    public Date getFechaAct() {
-        return fechaAct;
+    public String getFechaAct() {
+        String r = "";
+        if(fechaAct==null){
+            r=null;
+        }else{
+            r=fechaAct.toString();
+        }
+        return r;
     }
 
     /**
@@ -96,8 +102,14 @@ public class Laboratorio {
     /**
      * @return the fechaDesc
      */
-    public Date getFechaDesactivacion() {
-        return fechaDesc;
+    public String getFechaDesactivacion() {
+        String r = "";
+        if(fechaDesc==null){
+            r=null;
+        }else{
+            r=fechaDesc.toString();
+        }
+        return r;
     }
 
     /**
@@ -154,5 +166,8 @@ public class Laboratorio {
     public Grupo getGrupo(String nombre) {
         return grupos.get(nombre);
     }
-
+    
+    public void setEnunciado(Enunciado e){
+        this.enunciado= e;
+    }
 }

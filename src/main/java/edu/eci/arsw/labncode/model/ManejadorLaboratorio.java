@@ -7,10 +7,12 @@ package edu.eci.arsw.labncode.model;
 
 import edu.eci.arsw.labncode.restcontroller.ExceptionLabNCode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 /**
  *
@@ -39,7 +41,9 @@ public class ManejadorLaboratorio {
         }
         return profesores;
     }
-    
+    /*
+    Retorna un profesor en específico
+    */
     public Persona getProfesor(int id) throws ExceptionLabNCode{
         if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.ProfesorInexistente);
         if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.ProfesorInexistente);
@@ -197,7 +201,16 @@ public class ManejadorLaboratorio {
     
     public void addLaboratorio(Laboratorio lab){
         laboratorios.put(lab.getNombre(), lab);
-        
+    }
+    
+    /*
+        Añade el enunciado del laborario. 
+        @param lab Laboratorio al que se le va a añadir el enunciado
+        @param e Enunciado que se agregara al laboratorio
+    
+    */
+    public void setEnunciado(String lab, Enunciado e){
+        this.getLaboratorio(lab).setEnunciado(e);
     }
 
     private void cargaDatos(ManejadorLaboratorio lab){
@@ -206,11 +219,12 @@ public class ManejadorLaboratorio {
         materias.get("ARSW").registrarPersona(personas.get(0));
         lab.addEstudiante(new Estudiante("Alejandra",21000012));
         lab.addEstudiante(new Estudiante("Andres",2101240));
-        lab.addEstudiante(new Estudiante("Mico",2115265));
         materias.get("ARSW").registrarPersona(personas.get(1));
         materias.get("ARSW").registrarPersona(personas.get(2));
-        materias.get("ARSW").registrarPersona(personas.get(3));
         lab.addLaboratorio(new Laboratorio("ARSW-Lab", materias.get("ARSW")));
+        lab.getLaboratorio("ARSW-Lab").setFechaActivacion(new Date());
+        lab.getLaboratorio("ARSW-Lab").setEnunciado(new Enunciado());
+        //lab.getLaboratorio("ARSW-Lab").getEnunciado().addPunto(new Punto("Punto1", "Punto de Angular", 70.0));
     }
 
 

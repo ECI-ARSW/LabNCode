@@ -15,8 +15,7 @@ public class Estudiante extends Persona{
 
     public Estudiante(String nombre,int identificacion) {
         super(nombre,identificacion);
-         super.profesor=false;
-          super.estudiante=true;
+        
     }
     
     @Override
@@ -29,17 +28,21 @@ public class Estudiante extends Persona{
         return super.conectado;
     }
 
+  
+
     @Override
     public boolean esProfesor() {
-       
-        return super.profesor;
+        return false;
     }
 
     @Override
     public boolean esEstudiante() {
-        
-        return super.estudiante;
+       return true;
     }
+
+  
+
+    
 
     
     

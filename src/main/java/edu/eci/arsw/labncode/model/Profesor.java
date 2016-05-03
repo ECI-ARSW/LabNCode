@@ -15,13 +15,13 @@ public class Profesor extends Persona {
 
     public Profesor(String nombre,int identificacion) {
         super(nombre,identificacion);
-        super.profesor=true;
-        super.estudiante=false;
+        
     }
 
     @Override
     public void cambiarEstado(Grupo sala) {
         sala.cambiarEstado();
+        super.conectado=!super.conectado;
     }
 
     @Override
@@ -31,12 +31,12 @@ public class Profesor extends Persona {
 
     @Override
     public boolean esProfesor() {
-        return super.profesor;
+        return true;
     }
 
     @Override
     public boolean esEstudiante() {
-        return super.estudiante;
+        return false;
     }
 
 }

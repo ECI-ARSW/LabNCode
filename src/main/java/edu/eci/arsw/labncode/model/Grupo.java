@@ -62,10 +62,15 @@ public class Grupo {
         return !noExiste;
     }
 
-    public void desconectarPersona(Persona persona) {
-        if (persona instanceof Estudiante && personas.contains(persona)) {
-            persona.cambiarEstado(this);
+    public boolean desconectarPersona(Persona persona) {
+        boolean noExiste = true;
+        for (int i = 0; i < personas.size() && noExiste; i++) {
+            if (personas.get(i).getIdentificacion() == persona.getIdentificacion()) {
+                noExiste = false;
+                persona.cambiarEstado(this);
+            }
         }
+        return !noExiste;
     }
 
     void cambiarEstado() {
@@ -108,6 +113,11 @@ public class Grupo {
     public Laboratorio laboratorio() {
        return laboratorio;
     }
+
+    public ArrayList<Persona> getPersonas() {
+        return personas;
+    }
+    
     
     
 }

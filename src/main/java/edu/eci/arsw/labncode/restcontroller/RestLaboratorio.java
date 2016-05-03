@@ -69,7 +69,6 @@ public class RestLaboratorio {
     @RequestMapping(value = "/estudiante", method = RequestMethod.GET)
     @ResponseBody
     public List<Persona> getEstudiante() {
-        System.out.println("aqui entra");
         return labs.getEstudiantes();
     }
 
@@ -90,17 +89,110 @@ public class RestLaboratorio {
         return labs.getLaboratorio(idLab);
     }
 
+    /**
+     * Aqui crea una nueva sala
+     * @param idLab
+     * @param idEstudiante
+     * @param grupo
+     * @return 
+     */
     @RequestMapping(value = "/laboratorio/{idLab}/{idEstudiante}/{grupo}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> addGrupo(@PathVariable String idLab, @PathVariable String idEstudiante, @PathVariable String grupo) {
         try {
             labs.newSala(labs.getLaboratorio(idLab), labs.getEstudiante(Integer.parseInt(idEstudiante)), grupo);
-            System.out.println("grupocreado");
         } catch (ExceptionLabNCode ex) {
             Logger.getLogger(RestLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    /**
+     * aqui agrega un estudante a grupo
+     * @param idLab
+     * @param idEstudiante
+     * @param grupo
+     * @return 
+     */
+    @RequestMapping(value = "/laboratorio/{idLab}/add/{grupo}/{idEstudiante}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> addEstudianteGrupo(@PathVariable String idLab, @PathVariable int idEstudiante, @PathVariable String grupo) {
+        try {
+            labs.getGrupo(idLab,grupo).agregarPersona(labs.getEstudiante(idEstudiante));
+        } catch (ExceptionLabNCode ex) {
+            Logger.getLogger(RestLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
+    /**
+     * Aqui conecta un estudiante a un grupo 
+     * @param idLab
+     * @param idEstudiante
+     * @param grupo
+     * @return 
+     */
+     @RequestMapping(value = "/laboratorio/{idLab}/conectE/{grupo}/{idEstudiante}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> conectEstudianteGrupo(@PathVariable String idLab, @PathVariable int idEstudiante, @PathVariable String grupo) {
+        try {
+            labs.getGrupo(idLab, grupo).conectarse(labs.getEstudiante(idEstudiante));
+        } catch (ExceptionLabNCode ex) {
+            Logger.getLogger(RestLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    /**
+     * Aqui conecta un profesor a un grupo
+     * @param idLab
+     * @param idProfesor
+     * @param grupo
+     * @return 
+     */
+    @RequestMapping(value = "/laboratorio/{idLab}/conectP/{grupo}/{idProfesor}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> conectProfesorGrupo(@PathVariable String idLab, @PathVariable int idProfesor, @PathVariable String grupo) {
+        try {
+            labs.getGrupo(idLab, grupo).conectarse(labs.getProfesor(idProfesor));
+        } catch (ExceptionLabNCode ex) {
+            Logger.getLogger(RestLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    /**
+     * Desconecta profesor de grupo
+     * @param idLab
+     * @param idProfesor
+     * @param grupo
+     * @return 
+     */
+    @RequestMapping(value = "/laboratorio/{idLab}/desConectP/{grupo}/{idProfesor}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> desConectProfesorGrupo(@PathVariable String idLab, @PathVariable int idProfesor, @PathVariable String grupo) {
+        try {
+            labs.getGrupo(idLab, grupo).desconectarPersona(labs.getProfesor(idProfesor));
+        } catch (ExceptionLabNCode ex) {
+            Logger.getLogger(RestLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    /**
+     * Desconecta un estudiante del grupo
+     * @param idLab
+     * @param idEstudiante
+     * @param grupo
+     * @return 
+     */
+    @RequestMapping(value = "/laboratorio/{idLab}/desConectE/{grupo}/{idEstudiante}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> desConectEstudianteGrupo(@PathVariable String idLab, @PathVariable int idEstudiante, @PathVariable String grupo) {
+        try {
+            labs.getGrupo(idLab, grupo).desconectarPersona(labs.getEstudiante(idEstudiante));
+        } catch (ExceptionLabNCode ex) {
+            Logger.getLogger(RestLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
 
     @RequestMapping(value = "laboratorio/{idLab}/{idGrupo}", method = RequestMethod.GET)
     @ResponseBody

@@ -59,7 +59,7 @@ public class ManejadorLaboratorio {
     public Persona getEstudiante (int id) throws ExceptionLabNCode{
         if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
         if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
-        if(personas.get(id).esProfesor()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsEstudiante);
+        if(!personas.get(id).esEstudiante()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsEstudiante);
         return personas.get(id);
     }
     

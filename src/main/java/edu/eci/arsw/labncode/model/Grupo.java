@@ -21,7 +21,7 @@ public class Grupo {
     private ArrayList<Persona> personas;
     private boolean profesor;
     private Laboratorio laboratorio;
-    private Map<Integer,Archivo> archivos;
+    private Map<Integer, ArchivoClient> archivos;
 
     public Grupo(String nombre, ArrayList<Persona> personas,Laboratorio laboratorio) {
         this.nombre = nombre;
@@ -85,7 +85,7 @@ public class Grupo {
     }
 
     public ArrayList getArchivo() {
-        ArrayList<Archivo> archivo= new ArrayList<>();
+        ArrayList<ArchivoClient> archivo= new ArrayList<>();
         Iterator<Integer> keys=this.archivos.keySet().iterator();
         while(keys.hasNext()){
             int key=keys.next();
@@ -94,14 +94,14 @@ public class Grupo {
         return archivo;
     }
 
-    public void setArchivo(ArrayList<Archivo> archivo) {
+    public void setArchivo(ArrayList<ArchivoClient> archivo) {
         archivos.clear();
         for(int i =0; i<archivo.size();i++){
             archivos.put(archivo.get(i).getId(),archivo.get(i));
         }
     }
     
-    public Archivo getArchivo(int idArchivo){
+    public ArchivoClient getArchivo(int idArchivo){
         return archivos.get(idArchivo);
     }
 

@@ -5,7 +5,8 @@
  */
 package edu.eci.arsw.labncode.restcontroller;
 
-import edu.eci.arsw.labncode.model.Archivo;
+import edu.eci.arsw.labncode.model.ArchivoClient;
+import edu.eci.arsw.labncode.model.ArchivoServer;
 import edu.eci.arsw.labncode.model.Enunciado;
 import edu.eci.arsw.labncode.model.Grupo;
 import edu.eci.arsw.labncode.model.Laboratorio;
@@ -30,6 +31,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import static javax.management.Query.value;
+import static javax.management.Query.value;
+import static javax.management.Query.value;
+import static javax.management.Query.value;
 
 /**
  * 
@@ -111,7 +116,7 @@ public class RestLaboratorio {
 
     @RequestMapping(value = "/laboratorio/{idLab}/{idGrupo}/{idArchivo}", method = RequestMethod.GET)
     @ResponseBody
-    public Archivo getArchivo(String idLab, String idGrupo, int Archivo) {
+    public ArchivoClient getArchivo(String idLab, String idGrupo, int Archivo) {
         return labs.getLaboratorio(idLab).getGrupo(idGrupo).getArchivo(Archivo);
     }
 

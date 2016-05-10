@@ -35,6 +35,7 @@ import static javax.management.Query.value;
 import static javax.management.Query.value;
 import static javax.management.Query.value;
 import static javax.management.Query.value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 /**
@@ -42,6 +43,7 @@ import static javax.management.Query.value;
  *
  * @author MaríaAlejandra
  */
+@CrossOrigin(origins="http://localhost:*", maxAge=3600)
 @RestController
 @RequestMapping("/servicios")
 

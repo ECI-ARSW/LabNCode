@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  *
  * @author MaríaAlejandra
  */
-@CrossOrigin(origins="http://localhost:*", maxAge=3600)
+
 @RestController
 @RequestMapping("/servicios")
 

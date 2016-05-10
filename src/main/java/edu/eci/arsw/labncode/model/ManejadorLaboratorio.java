@@ -221,10 +221,14 @@ public class ManejadorLaboratorio {
         lab.addEstudiante(new Estudiante("Andres",2101240));
         materias.get("ARSW").registrarPersona(personas.get(1));
         materias.get("ARSW").registrarPersona(personas.get(2));
-        lab.addLaboratorio(new Laboratorio("ARSW-Lab", materias.get("ARSW")));
-        lab.getLaboratorio("ARSW-Lab").setFechaActivacion(new Date());
-        lab.getLaboratorio("ARSW-Lab").setEnunciado(new Enunciado());
-        //lab.getLaboratorio("ARSW-Lab").getEnunciado().addPunto(new Punto("Punto1", "Punto de Angular", 70.0));
+        Laboratorio l = new Laboratorio("ARSW-Lab", materias.get("ARSW"));
+        l.setFechaActivacion(new Date());
+        Enunciado e = new Enunciado();
+        e.addPunto(new Punto("Punto1", "Punto de servicios REST", 20.0));
+        e.addPunto(new Punto("Punto2", "Punto de Angular", 70.0));
+        e.addPunto(new Punto("Punto3", "Elaboración de documento", 10.0));
+        l.setEnunciado(e);
+        lab.addLaboratorio(l);
     }
 
 

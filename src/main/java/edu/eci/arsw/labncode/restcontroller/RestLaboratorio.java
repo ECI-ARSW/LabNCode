@@ -36,6 +36,7 @@ import static javax.management.Query.value;
 import static javax.management.Query.value;
 import static javax.management.Query.value;
 
+
 /**
  * 
  *
@@ -199,10 +200,11 @@ public class RestLaboratorio {
     public Grupo getGrupo(@PathVariable String idLab, @PathVariable String idGrupo) {
         return labs.getGrupo(idLab, idGrupo);
     }
-
+    
+    //@CrossOrigin(origins = "http://localhost:9000")
     @RequestMapping(value = "/laboratorio/{idLab}/enunciado", method = RequestMethod.GET)
     @ResponseBody
-    public Enunciado getEnunciado(String idLab) {
+    public Enunciado getEnunciado(@PathVariable String idLab) {
         return labs.getLaboratorio(idLab).getEnunciado();
     }
 

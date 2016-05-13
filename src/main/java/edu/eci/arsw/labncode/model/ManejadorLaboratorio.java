@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -192,10 +194,14 @@ public class ManejadorLaboratorio {
     }
     
     public Laboratorio getLaboratorio(String nombreLab){
+        System.out.println(nombreLab +"este es el nombre");
+        System.out.println(laboratorios.get(nombreLab) +"esto trae");
         return laboratorios.get(nombreLab);
     }
     
     public Grupo getGrupo(String laboratorio, String Grupo){
+        System.out.println(laboratorio +" "+ Grupo);
+        System.out.println(laboratorios.get(laboratorio) +" existe");
         return laboratorios.get(laboratorio).getGrupo(Grupo);
     }
     
@@ -214,21 +220,48 @@ public class ManejadorLaboratorio {
     }
 
     private void cargaDatos(ManejadorLaboratorio lab){
-        lab.addMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
-        lab.addProfesor(new Profesor("Mario Java",123456));
-        materias.get("ARSW").registrarPersona(personas.get(0));
-        lab.addEstudiante(new Estudiante("Alejandra",21000012));
-        lab.addEstudiante(new Estudiante("Andres",2101240));
-        materias.get("ARSW").registrarPersona(personas.get(1));
-        materias.get("ARSW").registrarPersona(personas.get(2));
-        Laboratorio l = new Laboratorio("ARSW-Lab", materias.get("ARSW"));
-        l.setFechaActivacion(new Date());
-        Enunciado e = new Enunciado();
-        e.addPunto(new Punto("Punto1", "Punto de servicios REST", 20.0));
-        e.addPunto(new Punto("Punto2", "Punto de Angular", 70.0));
-        e.addPunto(new Punto("Punto3", "Elaboración de documento", 10.0));
-        l.setEnunciado(e);
-        lab.addLaboratorio(l);
+        try {
+            lab.addMateria(new Materia("Arquitecturas de Software", "ARSW", "Desarrollo"));
+            lab.addProfesor(new Profesor("Mario Java",123456));
+            materias.get("ARSW").registrarPersona(personas.get(0));
+            Estudiante alejandra=new Estudiante("Alejandra",21000012);
+            Estudiante andres=new Estudiante("Andres",2101240);
+            lab.addEstudiante(alejandra);
+            lab.addEstudiante(andres);
+            materias.get("ARSW").registrarPersona(personas.get(1));
+            materias.get("ARSW").registrarPersona(personas.get(2));
+            Laboratorio l = new Laboratorio("ARSW-Lab", materias.get("ARSW"));
+            l.setFechaActivacion(new Date());
+            Enunciado e = new Enunciado();
+            Punto a=new Punto("Punto1", "Punto de servicios REST", 20.0);
+            Punto b=new Punto("Punto2", "Punto de Angular", 70.0);
+            Punto c=new Punto("Punto3", "Elaboración de documento", 10.0);
+            e.addPunto(a);
+            e.addPunto(b);
+            e.addPunto(c);
+            l.setEnunciado(e);
+            lab.addLaboratorio(l);
+            Grupo grupo= lab.newSala(l,alejandra ,"blancoCaicedo").getGrupo("blancoCaicedo");
+            grupo.agregarPersona(andres);
+            grupo.conectarse(andres);
+            grupo.conectarse(alejandra);
+            grupo=e.verificar(grupo, c);
+            grupo=e.verificar(grupo, a);
+            Estudiante cristian=new Estudiante("cristia", 12345);
+            Estudiante alex=new Estudiante("alex", 12345);
+            lab.addEstudiante(cristian);
+            lab.addEstudiante(alex);
+            materias.get("ARSW").registrarPersona(personas.get(3));
+            materias.get("ARSW").registrarPersona(personas.get(4));
+            Grupo grupo1= lab.newSala(l,cristian ,"cc").getGrupo("cc");
+            grupo1.agregarPersona(alex);
+            grupo1.conectarse(alex);
+            grupo1.conectarse(cristian);
+        } catch (ExceptionLabNCode ex) {
+            Logger.getLogger(ManejadorLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
 

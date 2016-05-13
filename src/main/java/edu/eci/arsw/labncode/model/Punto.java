@@ -20,7 +20,7 @@ public class Punto {
         
     }
 
-    Punto(String nombre, String descripcion, double peso) {
+    public Punto(String nombre, String descripcion, double peso) {
         this.nombre=nombre;
         this.descripcion=descripcion;
         this.peso=peso;
@@ -67,5 +67,10 @@ public class Punto {
     public void setPeso(double peso) {
         this.peso = peso;
     }
+
+    boolean verifica() {
+        return true;
+    }
+    
     
 }

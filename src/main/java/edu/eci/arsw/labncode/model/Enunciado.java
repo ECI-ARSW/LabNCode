@@ -15,9 +15,9 @@ import java.util.Hashtable;
 public class Enunciado {
     private ArrayList<Punto> puntos;
     
+    
     public Enunciado(){
         puntos = new ArrayList<Punto>();
-        
     }
     
     public Punto getPunto(int nombre){
@@ -26,8 +26,8 @@ public class Enunciado {
     
     public void addPunto(Punto punto){
         getPuntos().add(punto);
+     
     }
-
     /**
      * @return the puntos
      */
@@ -42,6 +42,11 @@ public class Enunciado {
         this.puntos = puntos;
     }
     
-    
+    public Grupo verificar(Grupo grupo, Punto punto){
+        if(punto.verifica()){
+            grupo.asignarPorcentaje(punto.getPeso());
+        }
+        return grupo;
+    }
     
 }

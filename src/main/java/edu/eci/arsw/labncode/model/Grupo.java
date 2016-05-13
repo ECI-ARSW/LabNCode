@@ -22,6 +22,7 @@ public class Grupo {
     private boolean profesor;
     private Laboratorio laboratorio;
     private Map<Integer, ArchivoClient> archivos;
+    private double porcentaje;
 
     public Grupo(String nombre, ArrayList<Persona> personas,Laboratorio laboratorio) {
         this.nombre = nombre;
@@ -29,6 +30,7 @@ public class Grupo {
         profesor = false;
         this.laboratorio=laboratorio;
         archivos=new TreeMap<>();
+        porcentaje=0.0;
     }
 
     public String getNombre() {
@@ -116,6 +118,14 @@ public class Grupo {
 
     public ArrayList<Persona> getPersonas() {
         return personas;
+    }
+
+    void asignarPorcentaje(double peso) {
+        porcentaje+=peso;
+    }
+
+    public double getPorcentaje() {
+        return porcentaje;
     }
     
     

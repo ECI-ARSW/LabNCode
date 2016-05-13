@@ -13,6 +13,7 @@ import edu.eci.arsw.labncode.model.Laboratorio;
 import edu.eci.arsw.labncode.model.ManejadorLaboratorio;
 import edu.eci.arsw.labncode.model.Persona;
 import edu.eci.arsw.labncode.model.Punto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -222,4 +223,11 @@ public class RestLaboratorio {
         return labs.getLaboratorio(idLab).getEnunciado().getPunto(nombrePunto);
     }
 
+    
+    @RequestMapping(value = "/laboratorio/grupos/{idLab}", method = RequestMethod.GET)
+    @ResponseBody
+    public ArrayList<Grupo> getLabGrupo(@PathVariable String idLab) {
+        System.out.println(idLab+" nombreeee");
+        return labs.getLaboratorio(idLab).getGrupo();
+    } 
 }

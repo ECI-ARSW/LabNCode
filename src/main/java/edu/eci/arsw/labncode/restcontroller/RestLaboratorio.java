@@ -224,7 +224,7 @@ public class RestLaboratorio {
     }
 
     
-    @RequestMapping(value = "/laboratorio/grupos/{idLab}", method = RequestMethod.GET)
+    @RequestMapping(value = "/laboratorio/{idLab}/grupos", method = RequestMethod.GET)
     @ResponseBody
     public ArrayList<Grupo> getLabGrupo(@PathVariable String idLab) {
         return labs.getLaboratorio(idLab).getGrupo();

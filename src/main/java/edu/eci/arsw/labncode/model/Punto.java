@@ -13,6 +13,9 @@ public class Punto {
     private String nombre;
     private String descripcion;
     private double peso;
+
+    public Punto() {
+    }
     
     public Punto(String nombre, String descripcion){
         this.nombre=nombre; 
@@ -64,7 +67,7 @@ public class Punto {
     /**
      * @param peso the peso to set
      */
-    public void setPeso(double peso) {
+    public void setPeso(int peso) {
         this.peso = peso;
     }
 

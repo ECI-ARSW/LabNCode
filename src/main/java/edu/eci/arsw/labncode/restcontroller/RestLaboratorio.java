@@ -45,6 +45,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  * @author MaríaAlejandra
  */
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/servicios")
 
@@ -225,9 +226,8 @@ public class RestLaboratorio {
 
     
     
-    @RequestMapping(value = "/laboratorio/{idLab}/enunciado/{idPunto}", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<?> addLabEnuPunto(@PathVariable String idLab, @PathVariable String idGrupo, @PathVariable Punto nombrePunto) {
+    @RequestMapping(value = "/laboratorio/{idLab}/enunciado/puntos", method = RequestMethod.POST)
+    public ResponseEntity<?> addLabEnuPunto(@PathVariable String idLab,@RequestBody Punto nombrePunto) {
         System.out.println("entra aqui!!!");
         labs.getLaboratorio(idLab).getEnunciado().addPunto(nombrePunto);
         return new ResponseEntity<>(HttpStatus.CREATED);

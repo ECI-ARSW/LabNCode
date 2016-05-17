@@ -16,7 +16,8 @@ public class Punto {
 
     public Punto() {
     }
-    
+    n
+            
     public Punto(String nombre, String descripcion){
         this.nombre=nombre; 
         this.descripcion = descripcion;

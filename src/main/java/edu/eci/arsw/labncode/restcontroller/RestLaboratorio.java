@@ -81,6 +81,18 @@ public class RestLaboratorio {
     public Persona getEstudiante(@PathVariable Integer idEst) throws ExceptionLabNCode {
         return labs.getEstudiante(idEst);
     }
+    
+    @RequestMapping(value = "/persona", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Persona> getPersonas() {
+        return labs.getPersonas();
+    }
+
+    
+    @RequestMapping(value = "/persona/{idP}", method = RequestMethod.GET)
+    public Persona getPersona(@PathVariable Integer idP) throws ExceptionLabNCode {
+        return labs.getPersona(idP);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addLaboratorio(@RequestBody Laboratorio lab) {

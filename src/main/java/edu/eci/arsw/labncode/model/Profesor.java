@@ -15,7 +15,7 @@ public class Profesor extends Persona {
 
     public Profesor(String nombre,int identificacion) {
         super(nombre,identificacion);
-        
+        super.profesor=true;
     }
 
     @Override

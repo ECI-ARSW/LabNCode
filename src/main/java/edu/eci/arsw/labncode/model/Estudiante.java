@@ -15,6 +15,7 @@ public class Estudiante extends Persona{
 
     public Estudiante(String nombre,int identificacion) {
         super(nombre,identificacion);
+        this.profesor = false;
         
     }
     

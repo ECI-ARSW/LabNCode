@@ -15,9 +15,7 @@ public class Punto {
     private double peso;
 
     public Punto() {
-    }
-    
-            
+    }         
     public Punto(String nombre, String descripcion){
         this.nombre=nombre; 
         this.descripcion = descripcion;

@@ -15,6 +15,7 @@ public abstract class Persona {
     private String nombre;
     private int identificacion;
     public boolean conectado;
+    public boolean profesor;
     
     public Persona(String nombre, int identificacion){
         this.nombre = nombre; 
@@ -47,6 +48,20 @@ public abstract class Persona {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the profesor
+     */
+    public boolean isProfesor() {
+        return profesor;
+    }
+
+    /**
+     * @param profesor the profesor to set
+     */
+    public void setProfesor(boolean profesor){
+        this.profesor = profesor;
     }
     
 }

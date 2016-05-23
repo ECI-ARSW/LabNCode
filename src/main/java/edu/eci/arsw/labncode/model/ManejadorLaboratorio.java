@@ -43,6 +43,10 @@ public class ManejadorLaboratorio {
         }
         return profesores;
     }
+    
+    public ArrayList<Persona> getPersonas(){
+        return personas;
+    }
     /*
     Retorna un profesor en específico
     */
@@ -62,6 +66,12 @@ public class ManejadorLaboratorio {
         if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
         if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
         if(!personas.get(id).esEstudiante()) throw new ExceptionLabNCode(ExceptionLabNCode.NoEsEstudiante);
+        return personas.get(id);
+    }
+    
+    public Persona getPersona (int id) throws ExceptionLabNCode{
+        if(id>=personas.size()) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
+        if(personas.get(id)==null) throw new ExceptionLabNCode(ExceptionLabNCode.EstudianteInexistente);
         return personas.get(id);
     }
     

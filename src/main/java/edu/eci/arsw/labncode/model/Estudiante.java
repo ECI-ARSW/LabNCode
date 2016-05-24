@@ -5,13 +5,18 @@
  */
 package edu.eci.arsw.labncode.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.ArrayList;
 
 /**
  *
  * @author 2101240
  */
+
 public class Estudiante extends Persona{
+
+    public Estudiante() {
+    }
 
     public Estudiante(String nombre,int identificacion) {
         super(nombre,identificacion);

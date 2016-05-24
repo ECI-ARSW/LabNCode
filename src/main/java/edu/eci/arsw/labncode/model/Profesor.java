@@ -5,14 +5,20 @@
  */
 package edu.eci.arsw.labncode.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.ArrayList;
 
 /**
  *
  * @author 2101240
  */
+
 public class Profesor extends Persona {
 
+    public Profesor() {
+    }
+
+    
     public Profesor(String nombre,int identificacion) {
         super(nombre,identificacion);
         super.profesor=true;

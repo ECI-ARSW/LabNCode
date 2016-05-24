@@ -11,7 +11,9 @@ import edu.eci.arsw.labncode.model.Enunciado;
 import edu.eci.arsw.labncode.model.Grupo;
 import edu.eci.arsw.labncode.model.Laboratorio;
 import edu.eci.arsw.labncode.model.ManejadorLaboratorio;
+import edu.eci.arsw.labncode.model.Materia;
 import edu.eci.arsw.labncode.model.Persona;
+import edu.eci.arsw.labncode.model.Profesor;
 import edu.eci.arsw.labncode.model.Punto;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +40,11 @@ import static javax.management.Query.value;
 import static javax.management.Query.value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-
 /**
- * 
+ *
  *
  * @author MaríaAlejandra
  */
-
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/servicios")
@@ -67,8 +67,15 @@ public class RestLaboratorio {
     }
 
     @RequestMapping(value = "/profesor/{idProf}", method = RequestMethod.GET)
+    @ResponseBody
     public Persona getProfesor(@PathVariable Integer idProf) throws ExceptionLabNCode {
         return labs.getProfesor(idProf);
+    }
+
+    @RequestMapping(value = "/materia/{idMat}", method = RequestMethod.GET)
+    @ResponseBody
+    public Materia getMateria(@PathVariable String idMat) throws ExceptionLabNCode {
+        return labs.getMateria(idMat);
     }
 
     @RequestMapping(value = "/estudiante", method = RequestMethod.GET)
@@ -81,23 +88,16 @@ public class RestLaboratorio {
     public Persona getEstudiante(@PathVariable Integer idEst) throws ExceptionLabNCode {
         return labs.getEstudiante(idEst);
     }
-    
+
     @RequestMapping(value = "/persona", method = RequestMethod.GET)
     @ResponseBody
     public List<Persona> getPersonas() {
         return labs.getPersonas();
     }
 
-    
     @RequestMapping(value = "/persona/{idP}", method = RequestMethod.GET)
     public Persona getPersona(@PathVariable Integer idP) throws ExceptionLabNCode {
         return labs.getPersona(idP);
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> addLaboratorio(@RequestBody Laboratorio lab) {
-        labs.addLaboratorio(lab);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/laboratorio/{idLab}", method = RequestMethod.GET)
@@ -108,10 +108,11 @@ public class RestLaboratorio {
 
     /**
      * Aqui crea una nueva sala
+     *
      * @param idLab
      * @param idEstudiante
      * @param grupo
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/laboratorio/{idLab}/{idEstudiante}/{grupo}", method = RequestMethod.POST)
     @ResponseBody
@@ -123,32 +124,35 @@ public class RestLaboratorio {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     /**
      * aqui agrega un estudante a grupo
+     *
      * @param idLab
      * @param idEstudiante
      * @param grupo
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/laboratorio/{idLab}/add/{grupo}/{idEstudiante}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> addEstudianteGrupo(@PathVariable String idLab, @PathVariable int idEstudiante, @PathVariable String grupo) {
         try {
-            labs.getGrupo(idLab,grupo).agregarPersona(labs.getEstudiante(idEstudiante));
+            labs.getGrupo(idLab, grupo).agregarPersona(labs.getEstudiante(idEstudiante));
         } catch (ExceptionLabNCode ex) {
             Logger.getLogger(RestLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    
+
     /**
-     * Aqui conecta un estudiante a un grupo 
+     * Aqui conecta un estudiante a un grupo
+     *
      * @param idLab
      * @param idEstudiante
      * @param grupo
-     * @return 
+     * @return
      */
-     @RequestMapping(value = "/laboratorio/{idLab}/conectE/{grupo}/{idEstudiante}", method = RequestMethod.POST)
+    @RequestMapping(value = "/laboratorio/{idLab}/conectE/{grupo}/{idEstudiante}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> conectEstudianteGrupo(@PathVariable String idLab, @PathVariable int idEstudiante, @PathVariable String grupo) {
         try {
@@ -158,12 +162,14 @@ public class RestLaboratorio {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     /**
      * Aqui conecta un profesor a un grupo
+     *
      * @param idLab
      * @param idProfesor
      * @param grupo
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/laboratorio/{idLab}/conectP/{grupo}/{idProfesor}", method = RequestMethod.POST)
     @ResponseBody
@@ -175,12 +181,14 @@ public class RestLaboratorio {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     /**
      * Desconecta profesor de grupo
+     *
      * @param idLab
      * @param idProfesor
      * @param grupo
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/laboratorio/{idLab}/desConectP/{grupo}/{idProfesor}", method = RequestMethod.POST)
     @ResponseBody
@@ -192,12 +200,14 @@ public class RestLaboratorio {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     /**
      * Desconecta un estudiante del grupo
+     *
      * @param idLab
      * @param idEstudiante
      * @param grupo
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/laboratorio/{idLab}/desConectE/{grupo}/{idEstudiante}", method = RequestMethod.POST)
     @ResponseBody
@@ -209,14 +219,13 @@ public class RestLaboratorio {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    
 
     @RequestMapping(value = "laboratorio/{idLab}/{idGrupo}", method = RequestMethod.GET)
     @ResponseBody
     public Grupo getGrupo(@PathVariable String idLab, @PathVariable String idGrupo) {
         return labs.getGrupo(idLab, idGrupo);
     }
-    
+
     //@CrossOrigin(origins = "http://localhost:9000")
     @RequestMapping(value = "/laboratorio/{idLab}/enunciado", method = RequestMethod.GET)
     @ResponseBody
@@ -236,19 +245,40 @@ public class RestLaboratorio {
         return labs.getLaboratorio(idLab).getEnunciado().getPunto(nombrePunto);
     }
 
-    
-    
     @RequestMapping(value = "/laboratorio/{idLab}/enunciado/puntos", method = RequestMethod.POST)
-    public ResponseEntity<?> addLabEnuPunto(@PathVariable String idLab,@RequestBody Punto nombrePunto) {
-        System.out.println("entra aqui!!!");
+    public ResponseEntity<?> addLabEnuPunto(@PathVariable String idLab, @RequestBody Punto nombrePunto) {
         labs.getLaboratorio(idLab).getEnunciado().addPunto(nombrePunto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    
-    
+
+    @RequestMapping(value = "/laboratorio/{idLab}/enunciado/remove/puntos", method = RequestMethod.POST)
+    public ResponseEntity<?> removeLabEnuPunto(@PathVariable String idLab, @RequestBody Punto nombrePunto) {
+        labs.getLaboratorio(idLab).getEnunciado().removePunto(nombrePunto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/laboratorio/{idLab}/enunciado/update/puntos", method = RequestMethod.POST)
+    public ResponseEntity<?> updateLabEnuPunto(@PathVariable String idLab, @RequestBody Punto nombrePunto) {
+        labs.getLaboratorio(idLab).getEnunciado().updatePunto(nombrePunto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/laboratorio/add", method = RequestMethod.POST)
+    public ResponseEntity<?> addLaboratorio(@RequestBody Laboratorio lab) {
+        System.out.println(lab.getMateria().getSigla());
+        labs.addLaboratorio(lab);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/laboratorios", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<List<Laboratorio>> getLabProfesor(@RequestBody Profesor profesor) {
+        return new ResponseEntity<>(labs.getHistorial(profesor), HttpStatus.CREATED);
+    }
+
     @RequestMapping(value = "/laboratorio/{idLab}/grupos", method = RequestMethod.GET)
     @ResponseBody
     public ArrayList<Grupo> getLabGrupo(@PathVariable String idLab) {
         return labs.getLaboratorio(idLab).getGrupo();
-    } 
+    }
 }

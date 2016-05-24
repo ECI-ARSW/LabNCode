@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.labncode.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 
 /**
@@ -13,10 +14,19 @@ import java.util.ArrayList;
  */
 public class Materia {
 
+    @JsonIgnore
     private String nombre;
-    private String sigla;
+    @JsonIgnore
     private String descripcion;
+    @JsonIgnore
     private ArrayList<Persona> personas;
+    
+    private String sigla; 
+    @JsonIgnore
+    private Profesor profesor;
+
+    public Materia() {
+    }
     
     public Materia(String nombre, String sigla, String descripcion){
         this.nombre= nombre; 
@@ -26,20 +36,21 @@ public class Materia {
     }
     
     public void registrarPersona(Persona p){
+        if(p.isProfesor()){
+            profesor=(Profesor)p;
+        }
         personas.add(p);
     }
 
-
-    public Persona getProfesor() {
-        Persona profesor = null;
-        for (Persona i : personas) {
-            if (i.esProfesor()) {
-                profesor = i;
-            }
-        }
+    public Profesor getProfesor() {
         return profesor;
     }
 
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    
     /**
      * @return the sigla
      */

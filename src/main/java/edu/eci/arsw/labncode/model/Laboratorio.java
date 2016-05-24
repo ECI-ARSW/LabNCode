@@ -5,6 +5,8 @@
  */
 package edu.eci.arsw.labncode.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,14 +19,32 @@ import java.util.Iterator;
  */
 public class Laboratorio {
 
+    private Date fechaAct;
+    private Date fechaDesc;    
     private String nombre;
     private boolean disponibilidad;
-    private Date fechaAct;
-    private Date fechaDesc;
     private Enunciado enunciado;
     private Hashtable<String, Grupo> grupos;
     private Materia materia;
 
+    @JsonIgnore
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+    @JsonIgnore
+    public void setGrupos(Hashtable<String, Grupo> grupos) {
+        this.grupos = grupos;
+    }
+
+    
+    
+    public Laboratorio() {
+        disponibilidad = true;
+        grupos= new Hashtable<>();
+        enunciado=new Enunciado();
+    }
+
+    
     public Laboratorio(String nombre, Materia materia) {
         this.nombre = nombre;
         this.materia = materia;
@@ -44,6 +64,7 @@ public class Laboratorio {
      *
      * @return Profesor retorna el profesor del laboratorio
      */
+    @JsonIgnore
     public Persona getProfesor() {
         return materia.getProfesor();
     }
@@ -95,14 +116,15 @@ public class Laboratorio {
     /**
      * @param fechaAct the fechaAct to set
      */
-    public void setFechaActivacion(Date fechaAct) {
+    
+    public void setFechaAct(Date fechaAct) {
         this.fechaAct = fechaAct;
     }
 
     /**
      * @return the fechaDesc
      */
-    public String getFechaDesactivacion() {
+    public String getFechaDesc() {
         String r = "";
         if(fechaDesc==null){
             r=null;
@@ -115,7 +137,9 @@ public class Laboratorio {
     /**
      * @param fechaDesc the fechaDesc to set
      */
-    public void setFechaDesactivacion(Date fechaDesc) {
+    
+    
+    public void setFechaDesc(Date fechaDesc) {
         this.fechaDesc = fechaDesc;
     }
 
@@ -142,6 +166,7 @@ public class Laboratorio {
     /**
      * @param grupo the salas to set
      */
+    @JsonIgnore
     public void setGrupo(ArrayList<Grupo> grupo) {
         grupos.clear();
         for (int i = 0; i < grupo.size(); i++) {
@@ -167,6 +192,7 @@ public class Laboratorio {
         return grupos.get(nombre);
     }
     
+    @JsonIgnore
     public void setEnunciado(Enunciado e){
         this.enunciado= e;
     }

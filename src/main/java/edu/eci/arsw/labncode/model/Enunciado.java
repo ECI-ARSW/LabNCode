@@ -48,5 +48,20 @@ public class Enunciado {
         }
         return grupo;
     }
+
+    public void removePunto(Punto nombrePunto) {
+        
+        for(int i =0; i<puntos.size(); i++){
+            if(puntos.get(i).getNombre().equals(nombrePunto.getNombre())){
+                puntos.remove(i);
+            }
+        }
+
+    }
+
+    public void updatePunto(Punto nombrePunto) {
+        removePunto(nombrePunto);
+        addPunto(nombrePunto);
+    }
     
 }
